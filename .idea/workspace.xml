@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a054bc1f-430e-4f84-b29d-e3a70e2afa18" name="Changes" comment="ESTOU A TESTAR MAS NUM TÁ FÁCIL" />
+    <list default="true" id="a054bc1f-430e-4f84-b29d-e3a70e2afa18" name="Changes" comment="ESTOU A TESTAR MAS NUM TÁ FÁCIL">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,6 +26,10 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Tiago Valente/PycharmProjects/senet&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -58,6 +67,8 @@
       <updated>1683811775555</updated>
       <workItem from="1683811776639" duration="4000" />
       <workItem from="1683812267260" duration="235000" />
+      <workItem from="1683842528574" duration="594000" />
+      <workItem from="1683845063598" duration="4000" />
     </task>
     <task id="LOCAL-00001" summary="ESTOU A TESTAR MAS NUM TÁ FÁCIL">
       <created>1683812469589</created>
