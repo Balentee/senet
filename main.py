@@ -1,4 +1,4 @@
 import random
 
 def randomizar():
-    return random.randint(0, 5)
+    return random.randint(0, 4)
