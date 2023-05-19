@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a054bc1f-430e-4f84-b29d-e3a70e2afa18" name="Changes" comment="ESTOU A TESTAR MAS NUM TÁ FÁCIL">
-      <change afterPath="$PROJECT_DIR$/button.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/display.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/button_quit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/button_resume.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/to_do" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/tabuleiro.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/tabuleirot.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/display.py" beforeDir="false" afterPath="$PROJECT_DIR$/display.py" afterDir="false" />
     </list>
     <list id="e737470c-2f9b-42b5-816f-4fccb4072b8b" name="Changes by vitor" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -93,7 +89,7 @@
       <workItem from="1683842528574" duration="594000" />
       <workItem from="1683845063598" duration="28000" />
       <workItem from="1683845133559" duration="1105000" />
-      <workItem from="1684410579696" duration="13144000" />
+      <workItem from="1684410579696" duration="17410000" />
     </task>
     <task id="LOCAL-00001" summary="ESTOU A TESTAR MAS NUM TÁ FÁCIL">
       <created>1683812469589</created>
@@ -130,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684170189118</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="ESTOU A TESTAR MAS NUM TÁ FÁCIL">
+      <created>1684497599564</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1684497599564</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -154,7 +157,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/senet$game.coverage" NAME="game Coverage Results" MODIFIED="1684435533249" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/senet$display.coverage" NAME="display Coverage Results" MODIFIED="1684496299584" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/senet$display.coverage" NAME="display Coverage Results" MODIFIED="1684507094685" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/senet$senet.coverage" NAME="senet Coverage Results" MODIFIED="1684412350120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/senet$main.coverage" NAME="main Coverage Results" MODIFIED="1684410582667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

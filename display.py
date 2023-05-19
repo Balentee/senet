@@ -23,6 +23,7 @@ arial = pygame.font.SysFont("arialblack", 40)
 # imagens
 resume_img = pygame.image.load("img/button_resume.png").convert_alpha()
 quit_img = pygame.image.load("img/button_quit.png").convert_alpha()
+tabuleiro_img = pygame.image.load("img/tabuleiro.png").convert_alpha()
 
 # criar butões
 resume_button = button.Button(700, 400, resume_img, 1)
@@ -47,10 +48,12 @@ while running:
             if resume_button.draw(window):
                 game_pause = False
             # TODO: botão de guardar (que vai guardar estado atual do jogo num ficheiro)
+            # nao esquecer o -- menu_state == "save" para depois fazer menu save com if
             if quit_button.draw(window):
                 running = False
     else:
-        display_text("Press esc to menu...", arial, white, 500, 500)
+        display_text("Press esc to menu...", arial, white, 0, 0)
+        window.blit(tabuleiro_img, (250, 250))  # está horrível, mas estética fica para depois
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -67,3 +70,5 @@ while running:
 
 
 pygame.quit()
+
+# TODO: https://youtube.com/shorts/WWIo6jvC5xA?feature=share ~ detalhe nice
