@@ -27,8 +27,11 @@ tabuleiro_img = pygame.image.load("img/tabuleiro.png").convert_alpha()
 
 # criar butões
 resume_button = button.Button(700, 400, resume_img, 1)
-quit_button = button.Button(715, 600, quit_img, 1)
+quit_button = button.Button(730, 600, quit_img, 1)
 
+# peças do jogo (TABULEIRO --> 3*10 -> 30 linha 1 começa (0, 0) e acaba (0,10) ver notas.txt
+white_location = [(0, 0)]
+black_location =[(0,1)]
 # funcao mostrar_texto
 def display_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)

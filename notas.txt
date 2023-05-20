@@ -1,0 +1,22 @@
+TABULEIRO:
+
+3 linhas
+10 colunas
+3 x 10 = 30 quadrados
+
+direcao peças:
+    1º linha: --->
+    2º linha: <---
+    3º linha: --->
+
+coordenadas
+primeira e ultima de cada linha:
+    1º linha: 0,0 e 0,10
+    2º linha: 1,10 e 1,0
+    3º linha: 2,0 e 2,10
+
+esquema
+
+0.0 /0.1 /0.2 /0.3 /0.4 /0.5 /0.6 /0.7 /0.8 /0.9 /0.10
+1.0 /1.1 /1.2 /1.3 /1.4 /1.5 /1.6 /1.7 /1.8 /1.9 /1.10
+2.0 /2.1 /2.2 /2.3 /2.4 /2.5 /2.6 /2.7 /2.8 /2.9 /2.10
