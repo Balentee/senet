@@ -32,6 +32,7 @@ quit_button = button.Button(730, 600, quit_img, 1)
 # peças do jogo (TABULEIRO --> 3*10 -> 30 linha 1 começa (0, 0) e acaba (0,10) ver notas.txt
 white_location = [(0, 0)]
 black_location =[(0,1)]
+
 # funcao mostrar_texto
 def display_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
@@ -56,7 +57,7 @@ while running:
                 running = False
     else:
         display_text("Press esc to menu...", arial, white, 0, 0)
-        window.blit(tabuleiro_img, (250, 250))  # está horrível, mas estética fica para depois
+        window.blit(tabuleiro_img, (250, 250))  # imagem nice para tabuleiro? check
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:

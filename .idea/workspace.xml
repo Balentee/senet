@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a054bc1f-430e-4f84-b29d-e3a70e2afa18" name="Changes" comment="V0.1&#10;&#10;temos um tabuleiro e um menu para mim ja pode ser versao 0.1 ahahaha">
-      <change afterPath="$PROJECT_DIR$/notas.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/display.py" beforeDir="false" afterPath="$PROJECT_DIR$/display.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/tabuleiro.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/tabuleiro.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/tabuleirot.jpg" beforeDir="false" />
-    </list>
+    <list default="true" id="a054bc1f-430e-4f84-b29d-e3a70e2afa18" name="Changes" comment="v0.1.1&#10;&#10;para atualizar o tabuleiro e mudanças" />
     <list id="e737470c-2f9b-42b5-816f-4fccb4072b8b" name="Changes by vitor" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +84,7 @@
       <workItem from="1683842528574" duration="594000" />
       <workItem from="1683845063598" duration="28000" />
       <workItem from="1683845133559" duration="1105000" />
-      <workItem from="1684410579696" duration="21982000" />
+      <workItem from="1684410579696" duration="22551000" />
     </task>
     <task id="LOCAL-00001" summary="ESTOU A TESTAR MAS NUM TÁ FÁCIL">
       <created>1683812469589</created>
@@ -141,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684507204998</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="v0.1.1&#10;&#10;para atualizar o tabuleiro e mudanças">
+      <created>1684613665386</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1684613665386</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,11 +163,12 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="ESTOU A TESTAR MAS NUM TÁ FÁCIL" />
     <MESSAGE value="V0.1&#10;&#10;temos um tabuleiro e um menu para mim ja pode ser versao 0.1 ahahaha" />
-    <option name="LAST_COMMIT_MESSAGE" value="V0.1&#10;&#10;temos um tabuleiro e um menu para mim ja pode ser versao 0.1 ahahaha" />
+    <MESSAGE value="v0.1.1&#10;&#10;para atualizar o tabuleiro e mudanças" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.1.1&#10;&#10;para atualizar o tabuleiro e mudanças" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/senet$game.coverage" NAME="game Coverage Results" MODIFIED="1684435533249" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/senet$display.coverage" NAME="display Coverage Results" MODIFIED="1684610535089" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/senet$display.coverage" NAME="display Coverage Results" MODIFIED="1684614082762" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/senet$senet.coverage" NAME="senet Coverage Results" MODIFIED="1684412350120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/senet$main.coverage" NAME="main Coverage Results" MODIFIED="1684410582667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
