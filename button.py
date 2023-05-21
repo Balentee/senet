@@ -21,7 +21,7 @@ class Button:
                 self.clicked = True
                 action = True
 
-        if pygame.mouse.get_pressed()[0] == 0:
+        if pygame.mouse.get_pressed()[0] == 0: # explica no video, [0] é botao esquerdo
             self.clicked = False
 
         # draw button on screen
