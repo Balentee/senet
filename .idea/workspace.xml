@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a054bc1f-430e-4f84-b29d-e3a70e2afa18" name="Changes" comment="v0.1.1&#10;&#10;para atualizar o tabuleiro e mudanças">
-      <change afterPath="$PROJECT_DIR$/audio/background.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/background.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/cone.png" afterDir="false" />
+    <list default="true" id="a054bc1f-430e-4f84-b29d-e3a70e2afa18" name="Changes" comment="v0.1.2&#10;&#10;- varias mudanças em peças tabuleiro etc&#10;- added musica egipica top">
+      <change afterPath="$PROJECT_DIR$/img/spool.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/button.py" beforeDir="false" afterPath="$PROJECT_DIR$/button.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/display.py" beforeDir="false" afterPath="$PROJECT_DIR$/display.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/notas.txt" afterDir="false" />
     </list>
     <list id="e737470c-2f9b-42b5-816f-4fccb4072b8b" name="Changes by vitor" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,23 +34,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Tiago Valente/PycharmProjects/senet",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Tiago Valente/PycharmProjects/senet&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="senet" />
@@ -92,7 +88,8 @@
       <workItem from="1683842528574" duration="594000" />
       <workItem from="1683845063598" duration="28000" />
       <workItem from="1683845133559" duration="1105000" />
-      <workItem from="1684410579696" duration="42169000" />
+      <workItem from="1684410579696" duration="48727000" />
+      <workItem from="1684773276672" duration="1090000" />
     </task>
     <task id="LOCAL-00001" summary="ESTOU A TESTAR MAS NUM TÁ FÁCIL">
       <created>1683812469589</created>
@@ -157,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684614357024</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="v0.1.2&#10;&#10;- varias mudanças em peças tabuleiro etc&#10;- added musica egipica top">
+      <created>1684687097784</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1684687097784</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -179,11 +183,12 @@
     <MESSAGE value="ESTOU A TESTAR MAS NUM TÁ FÁCIL" />
     <MESSAGE value="V0.1&#10;&#10;temos um tabuleiro e um menu para mim ja pode ser versao 0.1 ahahaha" />
     <MESSAGE value="v0.1.1&#10;&#10;para atualizar o tabuleiro e mudanças" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.1.1&#10;&#10;para atualizar o tabuleiro e mudanças" />
+    <MESSAGE value="v0.1.2&#10;&#10;- varias mudanças em peças tabuleiro etc&#10;- added musica egipica top" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.1.2&#10;&#10;- varias mudanças em peças tabuleiro etc&#10;- added musica egipica top" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/senet$game.coverage" NAME="game Coverage Results" MODIFIED="1684435533249" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/senet$display.coverage" NAME="display Coverage Results" MODIFIED="1684684866317" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/senet$display.coverage" NAME="display Coverage Results" MODIFIED="1684774375931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/senet$senet.coverage" NAME="senet Coverage Results" MODIFIED="1684412350120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/senet$main.coverage" NAME="main Coverage Results" MODIFIED="1684410582667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

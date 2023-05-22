@@ -41,23 +41,46 @@ resume_button = button.Button(700, 400, resume_img, 1)
 quit_button = button.Button(730, 600, quit_img, 1)
 
 # peças do jogo (TABULEIRO --> 3*10 -> 30 linha 1 começa (0, 0) e acaba (0,10) ver notas.txt
-white_pieces = ['cone0', 'cone2', 'cone4', 'cone6', 'cone8']
-white_location = [(0, 0), (0, 2), (0, 4), (0, 6), (0, 8)]
-black_pieces = ['spool1', 'spool3', 'spool5', 'spool7', 'spool9']
-black_location = [(0, 1), (0, 3), (0, 5), (0, 7), (0, 9)]
-
+white_pieces = ['cone', 'cone', 'cone', 'cone', 'cone']
+white_location = [(0, 0), (2, 0), (4, 0), (6, 0), (8, 0)]
+black_pieces = ['spool', 'spool', 'spool', 'spool', 'spool']
+black_location = [(1, 0), (3, 0), (5, 0), (7, 0), (9, 0)]
+piece_list = ['cone', 'spool']
 
 # quem joga variavel:
 # 0 - branca sem select / 1 - branca com select
 # 2 - preta sem select / 3 - preta com select
-turn_step = 0
+turn_step = 2
 selection = 100  # variavel para usar comoo flag de peça selecionada
 valid_moves = []  # check ações válidas
 
+# definitions
 # funcao mostrar_texto
 def display_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
     window.blit(img, (x, y))
+
+# funcao peças
+def draw_pieces():
+    for i in range(len(white_pieces)):
+        if white_pieces[i] == 'cone':
+            window.blit(white_img, (white_location[i][0] * 98 + 485, white_location[i][1] * 98 + 380))
+        if turn_step < 2:
+            if selection == i:
+                pygame.draw.rect(window, 'red', [white_location[i][0] * 98 + 468, white_location[i][1] * 100 + 377,
+                                                 100, 100], 2)
+
+    for i in range(len(black_pieces)):
+        if black_pieces[i] == 'spool':
+            window.blit(black_img, (black_location[i][0] * 98 + 485, black_location[i][1] * 98 + 380))
+        if turn_step >= 2:
+            if selection == i:
+                pygame.draw.rect(window, 'blue', [black_location[i][0] * 98 + 468, black_location[i][1] * 100 + 377,
+                                                  100, 100], 2)
+
+# funcao jogadas possiveis TODO: Fazer esta função
+def check_options():
+    pass
 
 
 # loop do jogo
@@ -85,7 +108,8 @@ while running:
         x_tabuleiro = 1.2990  # escala x relacao tabuleiro janela
         y_tabuleiro = 1.5104  # escala y relacao tabuleiro janela
         window.blit(tabuleiro_img, (width - width / x_tabuleiro, height - height / y_tabuleiro))
-        window.blit(white_img, (485, 380))
+        # window.blit(white_img, (485, 380))
+        draw_pieces()
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -94,6 +118,45 @@ while running:
                     game_pause = True  # se clicar esc pausa
                 else:           # se estiver pausado
                     game_pause = False  # esc volta ao jogo
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            x_coord = (event.pos[0] // 98)
+            y_coord = (event.pos[1] // 98)
+            click_coords = (x_coord, y_coord)
+            print(click_coords)
+            # if white turn:
+            if turn_step <= 1:
+                if click_coords in white_location:
+                    selection = white_location.index(click_coords)
+                    if turn_step == 0:
+                        turn_step = 1
+                if click_coords in valid_moves and selection != 100:
+                    white_location[selection] = click_coords
+                    if click_coords in black_location:
+                        black_piece = black_location.index(click_coords)
+                        # TODO: trocar uma peça com a outra é aqui
+                    black_options = check_options(black_pieces, black_location, 'black')
+                    white_options = check_options(white_pieces, white_location, 'black')
+                    turn_step = 0
+                    selection = 100
+                    valid_moves = []
+                # if black turn
+                if turn_step > 1:
+                    if click_coords in black_location:
+                        selection = black_location.index(click_coords)
+                        if turn_step == 2:
+                            turn_step = 3
+                    if click_coords in valid_moves and selection != 100:
+                        black_location[selection] = click_coords
+                        if click_coords in white_location:
+                            white_piece = white_location.index(click_coords)
+                            # TODO: trocar uma peça com a outra é aqui
+                        black_options = check_options(black_pieces, black_location, 'black')
+                        white_options = check_options(white_pieces, black_location, 'white')
+                        turn_step = 2
+                        selection = 100
+                        valid_moves = []
+
+
         if event.type == VIDEORESIZE:
             width, height = event.w, event.h
 
