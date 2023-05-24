@@ -3,6 +3,7 @@ from pygame import mixer
 from pygame.locals import *  # para VIDEORESIZE
 import button
 import os
+import random
 
 pygame.init()
 
@@ -50,7 +51,7 @@ piece_list = ['cone', 'spool']
 # quem joga variavel:
 # 0 - branca sem select / 1 - branca com select
 # 2 - preta sem select / 3 - preta com select
-turn_step = 2
+turn_step = 0
 selection = 100  # variavel para usar comoo flag de peça selecionada
 valid_moves = []  # check ações válidas
 
@@ -59,6 +60,11 @@ valid_moves = []  # check ações válidas
 def display_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
     window.blit(img, (x, y))
+
+# funcao rand dos paus
+def throw_sticks():
+    num_moves = random.randint(1,5)
+    return num_moves
 
 # funcao peças
 def draw_pieces():
@@ -79,9 +85,37 @@ def draw_pieces():
                                                   100, 100], 2)
 
 # funcao jogadas possiveis TODO: Fazer esta função
-def check_options():
-    pass
+def check_options(pieces, locations, turn):
+    moves_list = []
+    all_moves_list = []
+    for i in range(len(pieces)):
+        location = locations[i]
+        piece = pieces[i]
+        if piece == 'cone':
+            moves_list = check_cone(location)
+        if piece == 'spool':
+            moves_list = check_spool(location)
+    return all_moves_list
 
+# ver moves do cone TODO: TROCAR VALORES FIXOS COM O VALOR RAND DOS PAUS
+def check_cone(position):
+    moves_list = []
+    n = throw_sticks()  # number of moves = n
+    if position[1] == 0:
+        if (position[0] + n, position[1]) not in white_location and \
+                (position[0] + n, position[1]) not in black_location and position[0] < 9:
+            moves_list.append((position[0] + n, position[1]))
+        if (position[0] + n, position[1]) == 0:
+            pass
+
+# ver moves do spool
+def check_spool(position):
+    moves_list = []
+
+
+# options
+black_options = check_options(black_pieces, black_location, 'spool')
+white_options = check_options(white_pieces, black_location, 'cone')
 
 # loop do jogo
 running = True
@@ -119,10 +153,10 @@ while running:
                 else:           # se estiver pausado
                     game_pause = False  # esc volta ao jogo
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            x_coord = (event.pos[0] // 98)
-            y_coord = (event.pos[1] // 98)
+            x_coord = (event.pos[0] // 98) - 5
+            y_coord = (event.pos[1] // 98) - 4
             click_coords = (x_coord, y_coord)
-            print(click_coords)
+            print(x_coord, y_coord)
             # if white turn:
             if turn_step <= 1:
                 if click_coords in white_location:
@@ -134,9 +168,9 @@ while running:
                     if click_coords in black_location:
                         black_piece = black_location.index(click_coords)
                         # TODO: trocar uma peça com a outra é aqui
-                    black_options = check_options(black_pieces, black_location, 'black')
-                    white_options = check_options(white_pieces, white_location, 'black')
-                    turn_step = 0
+                    black_options = check_options(black_pieces, black_location, 'spool')
+                    white_options = check_options(white_pieces, white_location, 'cone')
+                    turn_step = 2
                     selection = 100
                     valid_moves = []
                 # if black turn
@@ -150,9 +184,9 @@ while running:
                         if click_coords in white_location:
                             white_piece = white_location.index(click_coords)
                             # TODO: trocar uma peça com a outra é aqui
-                        black_options = check_options(black_pieces, black_location, 'black')
-                        white_options = check_options(white_pieces, black_location, 'white')
-                        turn_step = 2
+                        black_options = check_options(black_pieces, black_location, 'spool')
+                        white_options = check_options(white_pieces, black_location, 'cone')
+                        turn_step = 0
                         selection = 100
                         valid_moves = []
 

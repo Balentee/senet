@@ -1,0 +1,3 @@
+3 in a row
+
+se estiverem 3 peças seguidas não se consegue avançar por cima delas

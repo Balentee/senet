@@ -4,7 +4,7 @@ import pygame
 
 
 white_pieces = ['cone0', 'cone2', 'cone4', 'cone6', 'cone8']
-white_location = [(0, 0), (0, 2), (0, 4), (0, 6), (0, 8)]
+white_location = [(0, 0), (9, 2), (0, 4), (0, 6), (0, 8)]
 black_pieces = ['spool1', 'spool3', 'spool5', 'spool7', 'spool9']
 black_location = [(0, 1), (0, 3), (0, 5), (0, 7), (0, 9)]
 
