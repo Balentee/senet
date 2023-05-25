@@ -30,8 +30,7 @@ Casas especiais
     9.2 -> a Casa de Heru (Hórus) (I).
 
 
- # resize shit:
-
+# resize shit:
     else:
         display_text("Press esc to menu", arial, white, 0, 0)
         # ok esta parte é preciso mesmo comentar:
@@ -49,3 +48,70 @@ Casas especiais
         if event.type == VIDEORESIZE:
             width, height = event.w, event.h
             tabuleiro_img = pygame.transform.scale(tabuleiro_img, (width/1.8532818532818532818532818532819, height/3.0769230769230769230769230769231))
+________________________________________________________________________________________________________________________
+
+
+
+________________________________________________________________________________________________________________________
+
+plano para 'check_cone':
+
+1º - Geral: se postition[x] + n (n=numero dos paus)
+    - se sitio esta vazio:
+        ocupar
+    - se esta ocupado por branca:
+        nao da para ir
+    - se estiver ocupado pela preta
+        trocar de sitio
+
+COMO RESOLVER PROBLEMA DA 2º LINHA
+colocar if para se for > 9 subtrai o resto na posicao abaixo mas na linha 2 andando
+assim para trás!
+depois se ficar menor que 0, adiciona na posicao abaixo mas na linha 3
+
+de linha 2 para linha 3
+imagina que estas em (1,1) e tens 5 casas para andar
+vais passar para o sitio (3,2)
+                            |-> vai se fazer: (1 - 5 + 9) - 1 = 5 - 1 = 4
+se tiveres no (0,1) e sair 1 vais ter de ir para o (0,2)
+
+PARA 3 IN A ROW
+
+fazer um for que teste o nº de casas à frente da peça que se vai mover do genero:
+for "cada casa a frente da peça" em "numero de jogadas":
+    if "ccfp" == exemplo: "brancas"
+        3_in_a_row += 1
+    else
+        3_in_a_row = 0
+        break
+
+________________________________________________________________________________________________________________________
+check cone se der merda
+
+def check_cone(position):
+    moves_list = []
+    n = throw_sticks()  # number of moves = n
+
+    # se linha 1 ou 3
+    if position[1] == 0 or position[1] == 2:
+        # se não há nenhuma peça no quadrado em que o cone calha
+        if (position[0] + n, position[1]) not in white_location and \
+                (position[0] + n, position[1]) not in black_location:
+            # se for passar da linha 1 para linha 2 do tabuleiro
+            if position[0] + n > 9:
+                linechange = (position[0] + n - 9) - 1  # mais 1 devido a se andar 1 em y e nao em x("quadrado inv")
+                moves_list.append((position[0] - linechange, position[1] + 1))
+            # sem trocas de linha:
+            else:
+                moves_list.append((position[0] + n, position[1]))
+
+        # se há uma peça preta no quadrado em que o cone calha
+        if (position[0] + n, position[1]) in black_location:
+            # se for passar da linha 1 para linha 2 do tabuleiro
+            if position[0] + n > 9:
+                linechange = (position[0] + n - 9) - 1  # mais 1 devido a se andar 1 em y e nao em x("quadrado inv")
+                moves_list.append((position[0] - linechange, position[1] + 1))
+            # sem trocas de linha:
+            else:
+                moves_list.append((position[0] + n, position[1]))
+________________________________________________________________________________________________________________________
