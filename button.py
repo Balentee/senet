@@ -1,6 +1,7 @@
 import pygame
 
 # BUTTON CLASS (cria butão)
+
 class Button:
     def __init__(self, x, y, image, scale):
         width = image.get_width()

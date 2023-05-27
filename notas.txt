@@ -115,3 +115,40 @@ def check_cone(position):
             else:
                 moves_list.append((position[0] + n, position[1]))
 ________________________________________________________________________________________________________________________
+
+quando se precisar de dizer que não se pode dar swap por exemplo aqui:
+if (position[0] + n, position[1]) not in black_location:
+
+crias as condicões com not in white location
+
+exemplo: se estiver naquela casa da 2 ou uma preta ou uma branca nao se pode dar
+swap entao imaginemos que:
+
+    - vez da branca e ta uma peça na casa jesus(da 2º vida)
+
+if (position[0] + n, position[1]) in white_location and (position[0] + n, position[1]) in black_location: # significa - if esta qualquer peça lá
+    if position[0] == 5:
+        d
+
+PARA BOT:
+    muito facil depois de ficar "oh fuck" durante 3 segundos até me vir à ideia a solução suprema :)))
+
+    bot em vez de clicar, tem click_coords randomizado conforme as suas opões válidas :)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

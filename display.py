@@ -20,6 +20,8 @@ game_start = False
 game_pause = False
 menu_state = "main"
 sticks = 0
+swap_w_white = 0
+swap_w_black = 0
 
 # cores
 white = (255, 255, 255)
@@ -65,19 +67,18 @@ turn_step = 0
 selection = 100  # variavel para usar comoo flag de peça selecionada
 valid_moves = []  # check ações válidas
 
-# definitions
+# funções
 # funcao mostrar_texto
 def display_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
     window.blit(img, (x, y))
 
-# funcao rand dos paus
+# funcao lançar os paus
 def throw_sticks():
     num_move = random.randint(1, 5)
-    print(num_move)
     return num_move
 
-# funcao peças
+# funcao desenhar peças + quadrado de selecao
 def draw_pieces():
     for i in range(len(white_pieces)):
         if white_pieces[i] == 'cone':
@@ -95,13 +96,11 @@ def draw_pieces():
                 pygame.draw.rect(window, 'blue', [black_location[i][0] * 98 + 468, black_location[i][1] * 100 + 377,
                                                   100, 100], 2)
 
-# funcao jogadas possiveis TODO: Fazer esta função
+# funcao jogadas possiveis
 def check_options(n, pieces, locations, turn):
     moves_list = []
     all_moves_list = []
-    print("your number: " + str(n))
     if n != 0:
-        print("running options")
         for i in range(len(pieces)):
             location = locations[i]
             if turn == 'cone':
@@ -109,65 +108,88 @@ def check_options(n, pieces, locations, turn):
             if turn == 'spool':
                 moves_list = check_moves(n, location, turn)
             all_moves_list.append(moves_list)  # um 'tab' a faltar aqui custou uma direta a rever código
-        print(all_moves_list)
     return all_moves_list
 
-# ver moves do cone
+# funcao calcula jogadas possiveis
 def check_moves(n, position, turn):
-    moves_list = []
-    print('My [' + str(position[0]) + ',' + str(position[1]) + ']')
-    # number of moves = n
+    moves_list = []  # IMPRT: além d iniciar se n houver posição pra mover devolv vazio important para os movs funcionar
+    # number of moves = n = sticks
+    # vez das brancas
+    pairs = two_in_a_row(n, position, turn)
+    threes = three_in_a_row(n, position, turn)
+
     if turn == 'cone':
-        # se linha 1 ou 3
-        if position[1] == 0 or position[1] == 2:
-            if (position[0] + n, position[1]) not in white_location:
-                print(" this shit " + str(position[0]) + "-" + str(position[1]))
+        # se linha 1
+        if position[1] == 0:
+            if (position[0] + n, position[1]) not in white_location and not threes and not pairs:
                 # se for passar da linha 1 para linha 2 do tabuleiro
                 if (position[0] + n) > 9:
                     linechange = (position[0] + n - 9) - 1  # menos 1 devido a se andar +1 em y e nao em x
-                    print("this is" + str(linechange))
-                    moves_list.append((9 - linechange, position[1] + 1))
-                    print(" wtf + " + str(moves_list))
+                    if (9 - linechange, position[1] + 1) not in white_location:
+                        moves_list.append((9 - linechange, position[1] + 1))
                 # sem trocas de linha:
                 if 0 <= position[0] + n <= 9:
                     moves_list.append((position[0] + n, position[1]))
-                    print(" wtf + " + str(moves_list))
+
         # se linha 2
         if position[1] == 1:
-            if (position[0] + n, position[1]) not in white_location:
-                # se for passar da linha 2 para a linha 3 do tabuleiro
-                if position[0] - n < 0:
-                    linechange = (- n) - 1  # menos 1 devido ao quadrado que se anda em coluna dado ao y
-                    moves_list.append((position[0] - linechange, position[1] + 1))
-                # se ficar na mesma linha: (linha 2 anda para a esquerda)
-                else:
-                    moves_list.append((position[0] - n, position[1]))
+            if (position[0] - n, position[1]) not in white_location:
+                if (position[0] - n, position[1]) == (5, 1) and (position[0] - n, position[1]) in black_location:
+                    pass
+                elif not pairs and not threes:
+                    # se for passar da linha 2 para a linha 3 do tabuleiro
+                    if position[0] - n < 0:
+                        linechange = -(position[0] - n) - 1  # menos 1 devido ao quadrado que se anda em coluna dado ao y
+                        if (0 + linechange, position[1] + 1) not in white_location:
+                            moves_list.append((0 + linechange, position[1] + 1))
+                    # se ficar na mesma linha: (linha 2 anda para a esquerda)
+                    if 0 <= position[0] - n <= 9:
+                        moves_list.append((position[0] - n, position[1]))
 
-    else:
-        # se linha 1 ou 3
-        if position[1] == 0 or position[1] == 2:
-            if (position[0] + n, position[1]) not in black_location:
+        # se linha 3
+        if position[1] == 2:
+            if (position[0] + n, position[1]) not in white_location:
+                if 0 <= position[0] + n <= 4 and not pairs and not threes:
+                    moves_list.append((position[0] + n, position[1]))
+
+    # vez das pretas
+    if turn == 'spool':
+        # se linha 1
+        if position[1] == 0:
+            if (position[0] + n, position[1]) not in black_location and not threes and not pairs:
                 # se for passar da linha 1 para linha 2 do tabuleiro
                 if position[0] + n > 9:
                     linechange = (position[0] + n - 9) - 1  # menos 1 devido a se andar +1 em y e nao em x
-                    moves_list.append((9 - linechange, position[1] + 1))
+                    if (9 - linechange, position[1] + 1) not in black_location:
+                        moves_list.append((9 - linechange, position[1] + 1))
                 # sem trocas de linha:
                 if 0 <= position[0] + n <= 9:
                     moves_list.append((position[0] + n, position[1]))
 
         # se linha 2
         if position[1] == 1:
+            if (position[0] - n, position[1]) not in black_location:
+                if (position[0] - n, position[1]) == (5, 1) and (position[0] - n, position[1]) in white_location:
+                    pass
+                elif not pairs and not threes:
+                    # se for passar da linha 2 para a linha 3 do tabuleiro
+                    if position[0] - n < 0:
+                        linechange = -(position[0] - n) - 1  # menos 1 devido ao quadrado que se anda em coluna dado ao y
+                        if (0 + linechange, position[1] + 1) not in black_location:
+                            moves_list.append((0 + linechange, position[1] + 1))
+                    # se ficar na mesma linha: (linha 2 anda para a esquerda)
+                    if 0 <= position[0] - n <= 9:
+                        moves_list.append((position[0] - n, position[1]))
+
+        # se linha 3
+        if position[1] == 2:
             if (position[0] + n, position[1]) not in black_location:
-                # se for passar da linha 2 para a linha 3 do tabuleiro
-                if position[0] - n < 0:
-                    linechange = (- n) - 1  # menos 1 devido ao quadrado que se anda em coluna dado ao y
-                    moves_list.append((position[0] - linechange, position[1] + 1))
-                # se ficar na mesma linha: (linha 2 anda para a esquerda)
-                moves_list.append((position[0] - n, position[1]))
+                if 0 <= position[0] + n <= 4 and not pairs and not threes:
+                    moves_list.append((position[0] + n, position[1]))
 
     return moves_list
 
-# calcula movimentos válidos
+# funcao movimentos válidos
 def check_valid_moves():
     if turn_step < 2:
         options_list = white_options
@@ -176,7 +198,7 @@ def check_valid_moves():
     valid_options = options_list[selection]
     return valid_options
 
-# apresenta movimentos válidos no ecrã
+# funcao apresenta movimentos válidos (ponto para onde se mover)
 def draw_valid(moves):
     if turn_step < 2:
         color = 'red'
@@ -185,12 +207,82 @@ def draw_valid(moves):
     for i in range(len(moves)):
         pygame.draw.circle(window, color, (moves[i][0] * 98 + 512, moves[i][1] * 98 + 421), 5)
 
+# funcoes REGRAS
+# funcao two_in_a_row → se duas juntas, nao pode substituir mas pode passar à frente
+def two_in_a_row(n, position, turn):
+    # a funcao deve ser capaz de retornar false se for possivel saltar o pair, pois este n influencia isso
+    there_are = 0
+    # for i in 7 porque até no maximo 7 casas à frente do peao, pode haver um pair a impedir
+    for i in 7:
+        i += 1
+        if turn == 'cone':
+            if position[1] == 2:
+                if (position[0] - i, position[1]) in black_location:
+                    there_are += 1
+                else:
+                    there_are = 0  # se estiverem separados volta ao 0 e mais importante, se conseguir saltar o par dá false
+            else:
+                if (position[0] + i, position[1]) in black_location:
+                    there_are += 1
+                else:
+                    there_are = 0
+        if turn == 'spool':
+            if position[1] == 2:
+                if (position[0] - i, position[1]) in white_location:
+                    there_are += 1
+                else:
+                    there_are = 0  # se estiverem separados volta ao 0 e mais importante, se conseguir saltar o par dá false
+            else:
+                if (position[0] + i, position[1]) in white_location:
+                    there_are += 1
+                else:
+                    there_are = 0
 
-# options
-if sticks == 0:
-    sticks = 3
-black_options = check_options(sticks, black_pieces, black_location, 'spool')
-white_options = check_options(sticks, white_pieces, white_location, 'cone')
+    if there_are >= 2:
+        return True
+    else:
+        return False
+
+# funcao three in a row
+def three_in_a_row(n, position, turn):
+    # tres seguidos? mal pela raiz, logo false
+    there_are = 0
+    for i in 7:
+        i += 1
+        if turn == 'cone':
+            if position[1] == 2:
+                if (position[0] - i, position[1]) in black_location:
+                    there_are += 1
+                    if there_are >= 3:
+                        return True
+                else:
+                    there_are = 0
+            else:
+                if (position[0] + i, position[1]) in black_location:
+                    there_are += 1
+                    if there_are >= 3:
+                        return True
+                else:
+                    there_are = 0
+        if turn == 'spool':
+            if position[1] == 2:
+                if (position[0] - i, position[1]) in white_location:
+                    there_are += 1
+                    if there_are >= 3:
+                        return True
+                else:
+                    there_are = 0
+            else:
+                if (position[0] + i, position[1]) in white_location:
+                    there_are += 1
+                    if there_are >= 3:
+                        return True
+                else:
+                    there_are = 0
+
+    if there_are < 3:
+        return False
+
 
 # loop do jogo
 running = True
@@ -218,6 +310,8 @@ while running:
             display_text("Press esc to menu", arial, white, 0, 0)
             if throw_button.draw(window) and sticks == 0:
                 sticks = throw_sticks()
+                black_options = check_options(sticks, black_pieces, black_location, 'spool')
+                white_options = check_options(sticks, white_pieces, white_location, 'cone')
             if sticks == 1:
                 window.blit(um, (0, 50))
             if sticks == 2:
@@ -252,12 +346,11 @@ while running:
             x_coord = (event.pos[0] // 98) - 5
             y_coord = (event.pos[1] // 98) - 4
             click_coords = (x_coord, y_coord)
-            print("where:" + str(click_coords))
+
             # if white turn:
             if turn_step <= 1:
                 if click_coords in white_location:
                     selection = white_location.index(click_coords)
-                    print("here" + str(selection))
                     swap_w_white = click_coords
                     if turn_step == 0:
                         turn_step = 1
@@ -272,26 +365,25 @@ while running:
                     selection = 100
                     sticks = 0
                     valid_moves = []
-                # if black turn
-                if turn_step > 1:
-                    if click_coords in black_location:
-                        selection = black_location.index(click_coords)
-                        swap_w_black = click_coords
-                        if turn_step == 2:
-                            turn_step = 3
-                    if click_coords in valid_moves and selection != 100:
-                        black_location[selection] = click_coords
-                        if click_coords in white_location:
-                            white_piece = white_location.index(click_coords)
-                            black_location[white_piece] = swap_w_black
-                        black_options = check_options(sticks, black_pieces, black_location, 'spool')
-                        white_options = check_options(sticks, white_pieces, white_location, 'cone')
-                        turn_step = 0
-                        selection = 100
-                        sticks = 0
-                        valid_moves = []
-        if selection != 100:
-            print('[' + str(white_options) + ']' + ' [' + str(black_options) + ']')
+
+            # if black turn
+            if turn_step > 1:
+                if click_coords in black_location:
+                    selection = black_location.index(click_coords)
+                    swap_w_black = click_coords
+                    if turn_step == 2:
+                        turn_step = 3
+                if click_coords in valid_moves and selection != 100:
+                    black_location[selection] = click_coords
+                    if click_coords in white_location:
+                        white_piece = white_location.index(click_coords)
+                        white_location[white_piece] = swap_w_black
+                    black_options = check_options(sticks, black_pieces, black_location, 'spool')
+                    white_options = check_options(sticks, white_pieces, white_location, 'cone')
+                    turn_step = 0
+                    selection = 100
+                    sticks = 0
+                    valid_moves = []
 
         if event.type == VIDEORESIZE:
             width, height = event.w, event.h
