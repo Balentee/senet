@@ -35,6 +35,7 @@ start_img = pygame.image.load("img/button_start.png")
 resume_img = pygame.image.load("img/button_resume.png").convert_alpha()
 quit_img = pygame.image.load("img/button_quit.png").convert_alpha()
 tabuleiro_img = pygame.image.load("img/tabuleiro.png").convert_alpha()
+roll_img = pygame.image.load("img/button_roll.png").convert_alpha()
 white_img = pygame.image.load("img/cone.png").convert_alpha()
 black_img = pygame.image.load("img/spool.png").convert_alpha()
 um = pygame.image.load("img/1.png").convert_alpha()
@@ -51,7 +52,7 @@ mixer.music.play(-1)  # loop infinito
 start_button = button.Button(850, 400, start_img, 1)
 resume_button = button.Button(800, 400, resume_img, 1)
 quit_button = button.Button(830, 600, quit_img, 1)
-throw_button = button.Button(0, 200, quit_img, 1)
+throw_button = button.Button(0, 200, roll_img, 1)
 
 # peças do jogo (TABULEIRO --> 3*10 -> 30 linha 1 começa (0, 0) e acaba (0,10) ver notas.txt
 white_pieces = ['cone', 'cone', 'cone', 'cone', 'cone']
@@ -114,10 +115,11 @@ def check_options(n, pieces, locations, turn):
 def check_moves(n, position, turn):
     moves_list = []  # IMPRT: além d iniciar se n houver posição pra mover devolv vazio important para os movs funcionar
     # number of moves = n = sticks
-    # vez das brancas
     pairs = two_in_a_row(n, position, turn)
-    threes = three_in_a_row(n, position, turn)
+    # threes = three_in_a_row(n, position, turn)
+    threes = False
 
+    # vez das brancas
     if turn == 'cone':
         # se linha 1
         if position[1] == 0:
@@ -212,73 +214,141 @@ def draw_valid(moves):
 def two_in_a_row(n, position, turn):
     # a funcao deve ser capaz de retornar false se for possivel saltar o pair, pois este n influencia isso
     there_are = 0
-    # for i in 7 porque até no maximo 7 casas à frente do peao, pode haver um pair a impedir
-    for i in 7:
+    maxim = n + 1  # n + 1, pois a casa onde calha o n pode ser a primeira peça de um par, entao tem de ler essa + 1
+    # for i in maxim porque maxim é o num de casas à frente que pode influenciar a jogada com um par
+    for i in range(maxim):
         i += 1
         if turn == 'cone':
-            if position[1] == 2:
+            # se linha 1
+            if position[1] == 0:
+                # se passar de linha e tiver um par:
+                if (position[0] + i) > 9:
+                    linechange = (position[0] + i - 9) - 1  #TODO rever condicao aqui
+                    if (9 - linechange, position[1] + 1) in black_location:
+                        there_are += 1
+                # se estiver na mesma linha e tiver par
+                if 0 <= position[0] + i <= 9:
+                    if (position[0] + i, position[1]) in black_location:
+                        there_are += 1
+                # não há par? entao reinicializar na variavel
+                else:
+                    there_are = 0
+            # se linha 2
+            if position[1] == 1:
                 if (position[0] - i, position[1]) in black_location:
                     there_are += 1
                 else:
                     there_are = 0  # se estiverem separados volta ao 0 e mais importante, se conseguir saltar o par dá false
-            else:
+            # se linha 3
+            if position[1] == 2:
                 if (position[0] + i, position[1]) in black_location:
                     there_are += 1
                 else:
                     there_are = 0
+
         if turn == 'spool':
-            if position[1] == 2:
+            # se linha 1
+            if position[1] == 0:
+                # se passar de linha e tiver um par:
+                if (position[0] + i) > 9:
+                    linechange = (position[0] + i - 9) - 1  # TODO rever condicao aqui
+                    if (9 - linechange, position[1] + 1) in white_location:
+                        there_are += 1
+                # se estiver na mesma linha e tiver par
+                if 0 <= position[0] + i <= 9:
+                    if (position[0] + i, position[1]) in white_location:
+                        there_are += 1
+                # não há par? entao reinicializar na variavel
+                else:
+                    there_are = 0
+            # se linha 2
+            if position[1] == 1:
                 if (position[0] - i, position[1]) in white_location:
                     there_are += 1
                 else:
                     there_are = 0  # se estiverem separados volta ao 0 e mais importante, se conseguir saltar o par dá false
-            else:
+            # se linha 3
+            if position[1] == 2:
                 if (position[0] + i, position[1]) in white_location:
                     there_are += 1
                 else:
                     there_are = 0
 
+        if there_are >= 2 and i == n:
+            return True
+
     if there_are >= 2:
         return True
-    else:
+    if there_are < 2:
         return False
+
 
 # funcao three in a row
 def three_in_a_row(n, position, turn):
     # tres seguidos? mal pela raiz, logo false
     there_are = 0
-    for i in 7:
+    maxim = n + 2  # n + 2, pois a casa onde calha o n pode ser a primeira peça de tres, entao tem de ler essa + 2 da frent
+    # for i in maxim porque maxim é o num de casas à frente que pode influenciar a jogada com um par
+    for i in range(maxim):
         i += 1
         if turn == 'cone':
-            if position[1] == 2:
+            # se linha 1
+            if position[1] == 0:
+                # se passar de linha e tiver um par:
+                if (position[0] + i) > 9:
+                    linechange = (position[0] + i - 9) - 1  # TODO rever condicao aqui
+                    if (9 - linechange, position[1] + 1) in black_location:
+                        there_are += 1
+                # se estiver na mesma linha e tiver par
+                if 0 <= position[0] + i <= 9:
+                    if (position[0] + i, position[1]) in black_location:
+                        there_are += 1
+                # não há par? entao reinicializar na variavel
+                else:
+                    there_are = 0
+            # se linha 2
+            if position[1] == 1:
                 if (position[0] - i, position[1]) in black_location:
                     there_are += 1
-                    if there_are >= 3:
-                        return True
                 else:
-                    there_are = 0
-            else:
+                    there_are = 0  # se estiverem separados volta ao 0
+            # se linha 3
+            if position[1] == 2:
                 if (position[0] + i, position[1]) in black_location:
                     there_are += 1
-                    if there_are >= 3:
-                        return True
                 else:
                     there_are = 0
+
         if turn == 'spool':
-            if position[1] == 2:
+            # se linha 1
+            if position[1] == 0:
+                # se passar de linha e tiver um par:
+                if (position[0] + i) > 9:
+                    linechange = (position[0] + i - 9) - 1  # TODO rever condicao aqui
+                    if (9 - linechange, position[1] + 1) in white_location:
+                        there_are += 1
+                # se estiver na mesma linha e tiver par
+                if 0 <= position[0] + i <= 9:
+                    if (position[0] + i, position[1]) in white_location:
+                        there_are += 1
+                # não há par? entao reinicializar na variavel
+                else:
+                    there_are = 0
+            # se linha 2
+            if position[1] == 1:
                 if (position[0] - i, position[1]) in white_location:
                     there_are += 1
-                    if there_are >= 3:
-                        return True
                 else:
-                    there_are = 0
-            else:
+                    there_are = 0  # se estiverem separados volta ao 0 e mais importante, se conseguir saltar o par dá false
+            # se linha 3
+            if position[1] == 2:
                 if (position[0] + i, position[1]) in white_location:
                     there_are += 1
-                    if there_are >= 3:
-                        return True
                 else:
                     there_are = 0
+
+        if there_are >= 3:
+            return True
 
     if there_are < 3:
         return False
@@ -346,7 +416,7 @@ while running:
             x_coord = (event.pos[0] // 98) - 5
             y_coord = (event.pos[1] // 98) - 4
             click_coords = (x_coord, y_coord)
-
+            # TODO bot TURN HERE + HOW HE CHOOSES CLICK COORDS
             # if white turn:
             if turn_step <= 1:
                 if click_coords in white_location:

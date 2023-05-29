@@ -1,0 +1,69 @@
+# deteta se há um 2 na função toda
+def two_in_a_row(turn):
+    there_are = 0
+
+    if turn == 'cone':
+        for i in black_location:
+            # se linha 1
+            if i[1] == 0:
+                # se mesma linha
+                if (i[0] + 1, i[1]) in black_location:
+                    there_are += 1
+                # se seguidos em coluna
+                if i[0] + 1 > 9:
+                    if (i[0], i[1] + 1) in black_location:
+                        there_are += 1
+            if i[1] == 1:
+                # se mesma linha
+                if (i[0] - 1, i[1]) in black_location:
+                    there_are += 1
+                # se seguidos em coluna
+                if i[0] - 1 < 0:
+                    if (i[0], i[1] + 1) in black_location:
+                        there_are += 1
+            if i[1] == 2:
+                if i[0] <= 5:
+                    # se mesma linha
+                    if (i[0] + 1, i[1]) in black_location:
+                        there_are += 1
+                    # se seguidos em coluna
+                    if i[0] - 1 < 0:
+                        if (i[0], i[1] + 1) in black_location:
+                            there_are += 1
+        if there_are >= 2:
+            return True
+        else:
+            return False
+
+    if turn == 'spool':
+        for i in white_location:
+            # se linha 1
+            if i[1] == 0:
+                # se mesma linha
+                if (i[0] + 1, i[1]) in white_location:
+                    there_are += 1
+                # se seguidos em coluna
+                if i[0] + 1 > 9:
+                    if (i[0], i[1] + 1) in white_location:
+                        there_are += 1
+            if i[1] == 1:
+                # se mesma linha
+                if (i[0] - 1, i[1]) in white_location:
+                    there_are += 1
+                # se seguidos em coluna
+                if i[0] - 1 < 0:
+                    if (i[0], i[1] + 1) in white_location:
+                        there_are += 1
+            if i[1] == 2:
+                if i[0] <= 5:
+                    # se mesma linha
+                    if (i[0] + 1, i[1]) in white_location:
+                        there_are += 1
+                    # se seguidos em coluna
+                    if i[0] - 1 < 0:
+                        if (i[0], i[1] + 1) in white_location:
+                            there_are += 1
+        if there_are >= 2:
+            return True
+        else:
+            return False
