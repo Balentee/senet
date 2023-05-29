@@ -155,7 +155,7 @@ position[0] + n
 def two_in_a_row(n, position, turn):
     # a funcao deve ser capaz de retornar false se for possivel saltar o pair, pois este n influencia isso
     there_are = 0
-    maxim = n + 1  # n + 1, pois a casa onde calha o n pode ser a primeira peça de um par, entao tem de ler +essa
+    maxim = n + 1  # n + 1, pois a casa onde calha o n pode ser a primeira peça de um par, entao tem de ler essa + 1
     # for i in maxim porque maxim é o num de casas à frente que pode influenciar a jogada com um par
     for i in range(maxim):
         i += 1
@@ -168,8 +168,9 @@ def two_in_a_row(n, position, turn):
                     if (9 - linechange, position[1] + 1) in black_location:
                         there_are += 1
                 # se estiver na mesma linha e tiver par
-                elif 0 <= position[0] + i <= 9 in black_location:
-                    there_are += 1
+                if 0 <= position[0] + i <= 9:
+                    if (position[0] + i, position[1]) in black_location:
+                        there_are += 1
                 # não há par? entao reinicializar na variavel
                 else:
                     there_are = 0
@@ -195,8 +196,9 @@ def two_in_a_row(n, position, turn):
                     if (9 - linechange, position[1] + 1) in white_location:
                         there_are += 1
                 # se estiver na mesma linha e tiver par
-                elif 0 <= position[0] + i <= 9 in white_location:
-                    there_are += 1
+                if 0 <= position[0] + i <= 9:
+                    if (position[0] + i, position[1]) in white_location:
+                        there_are += 1
                 # não há par? entao reinicializar na variavel
                 else:
                     there_are = 0
@@ -213,8 +215,6 @@ def two_in_a_row(n, position, turn):
                 else:
                     there_are = 0
 
-        if there_are >= 2 and i == n:
-            return True
 
     if there_are >= 2:
         return True

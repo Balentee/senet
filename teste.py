@@ -63,10 +63,5 @@ def three_in_a_row():
     else:
         return False
 
-
-at = 1
-for i in a:
-    if at == 1:
-        pass
-    elif at == 1:
-        print("yay")
+for i in range(5):
+    print(i)

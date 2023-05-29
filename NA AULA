@@ -1,0 +1,15 @@
+NA AULA
+
+- TIAGO-
+VOU TESTAR OS 2 E 3 IN A ROW
+COMPOR 2 E 3 IN A ROW
+
+-VITOR
+FAZES CONDICOES DAS CASAS ESPECIAIS EM DEFINICOES TIPO ESTA
+
+tiago explica funcao :
+
+linha 174:
+    if (position[0] - n, position[1]) == (5, 1) and (position[0] - n, position[1]) in white_location:
+        pass
+    elif .....

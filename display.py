@@ -274,8 +274,6 @@ def two_in_a_row(n, position, turn):
                 else:
                     there_are = 0
 
-        if there_are >= 2 and i == n:
-            return True
 
     if there_are >= 2:
         return True
