@@ -14,7 +14,7 @@ A. Caso o utilizador selecione a opção A devem ser realizadas as seguintes ope
 
 1. Pedir o Nome do jogador.
 
-2. Selecionar aleatoriamente quem é o primeiro jogador, humano ou BOT.
+2. Selecionar aleatoriamente quem é o primeiro jogador, humano ou BOT. (RAND SE TURN =0 OU TURN = 1)
 
 3. Construir a interface do jogo, ou seja, desenhar na consola todos os elementos
 necessários para visualizar o desenrolar da partida:

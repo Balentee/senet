@@ -63,5 +63,8 @@ def three_in_a_row():
     else:
         return False
 
-for i in range(5):
-    print(i)
+i = 1
+if i == 1:
+    pass
+else:
+    print("merda")

@@ -38,6 +38,7 @@ tabuleiro_img = pygame.image.load("img/tabuleiro.png").convert_alpha()
 roll_img = pygame.image.load("img/button_roll.png").convert_alpha()
 white_img = pygame.image.load("img/cone.png").convert_alpha()
 black_img = pygame.image.load("img/spool.png").convert_alpha()
+sticks_img = pygame.image.load("img/sticks.png").convert_alpha()
 um = pygame.image.load("img/1.png").convert_alpha()
 dois = pygame.image.load("img/2.png").convert_alpha()
 tres = pygame.image.load("img/3.png").convert_alpha()
@@ -52,7 +53,7 @@ mixer.music.play(-1)  # loop infinito
 start_button = button.Button(850, 400, start_img, 1)
 resume_button = button.Button(800, 400, resume_img, 1)
 quit_button = button.Button(830, 600, quit_img, 1)
-throw_button = button.Button(0, 200, roll_img, 1)
+throw_button = button.Button(78, 371, roll_img, 1)
 
 # peças do jogo (TABULEIRO --> 3*10 -> 30 linha 1 começa (0, 0) e acaba (0,10) ver notas.txt
 white_pieces = ['cone', 'cone', 'cone', 'cone', 'cone']
@@ -109,26 +110,38 @@ def check_options(n, pieces, locations, turn):
             if turn == 'spool':
                 moves_list = check_moves(n, location, turn)
             all_moves_list.append(moves_list)  # um 'tab' a faltar aqui custou uma direta a rever código
+
+    # todos os moves que uma peça pode fazer dependendo da turn
+    for x in all_moves_list:
+        print(x)
+        # twos = two_in_a_row(n, x, turn)
+        # threes = three_in_a_row(n, x, turn)
+
+
     return all_moves_list
 
 # funcao calcula jogadas possiveis
 def check_moves(n, position, turn):
     moves_list = []  # IMPRT: além d iniciar se n houver posição pra mover devolv vazio important para os movs funcionar
     # number of moves = n = sticks
-    pairs = two_in_a_row(n, position, turn)
+    # pairs = two_in_a_row(n, position, turn)
     # threes = three_in_a_row(n, position, turn)
-    threes = False
+    # threes = False
 
     # vez das brancas
     if turn == 'cone':
         # se linha 1
         if position[1] == 0:
-            if (position[0] + n, position[1]) not in white_location and not threes and not pairs:
+            if (position[0] + n, position[1]) not in white_location:
                 # se for passar da linha 1 para linha 2 do tabuleiro
                 if (position[0] + n) > 9:
                     linechange = (position[0] + n - 9) - 1  # menos 1 devido a se andar +1 em y e nao em x
                     if (9 - linechange, position[1] + 1) not in white_location:
-                        moves_list.append((9 - linechange, position[1] + 1))
+                        if (9 - linechange, position[1] + 1) == (5, 1):
+                            pass
+                        else:
+                            moves_list.append((9 - linechange, position[1] + 1))
+
                 # sem trocas de linha:
                 if 0 <= position[0] + n <= 9:
                     moves_list.append((position[0] + n, position[1]))
@@ -138,7 +151,7 @@ def check_moves(n, position, turn):
             if (position[0] - n, position[1]) not in white_location:
                 if (position[0] - n, position[1]) == (5, 1) and (position[0] - n, position[1]) in black_location:
                     pass
-                elif not pairs and not threes:
+                else:
                     # se for passar da linha 2 para a linha 3 do tabuleiro
                     if position[0] - n < 0:
                         linechange = -(position[0] - n) - 1  # menos 1 devido ao quadrado que se anda em coluna dado ao y
@@ -151,18 +164,40 @@ def check_moves(n, position, turn):
         # se linha 3
         if position[1] == 2:
             if (position[0] + n, position[1]) not in white_location:
-                if 0 <= position[0] + n <= 4 and not pairs and not threes:
+                if 0 <= position[0] + n <= 4:
                     moves_list.append((position[0] + n, position[1]))
-
+                # SE FOR PARA A CASA DA BELEZA
+                if (position[0] + n, position[1]) == (5, 2) and (position[0] + n, position[1]) not in black_location:
+                    moves_list.append((position[0] + n, position[1]))
+                # SE ESTIVER NA CASA DA BELEZA
+                if (position[0], position[1]) == (5, 2):
+                    # SE CASA DAS AGUAS
+                    if (position[0] + n, position[1]) == (6, 2):
+                        moves_list.append((6, 2))
+                    # SE FOR PARA CASA DOS TRES JUIZES
+                    if (position[0] + n, position[1]) == (7, 2):
+                        if n == 2:
+                            moves_list.append((position[0] + n, position[1]))
+                    # SE FOR PARA CASA DOS DOIS JUIZES
+                    if (position[0] + n, position[1]) == (8, 2):
+                        if n == 3:
+                            moves_list.append((position[0] + n, position[1]))
+                    # SE FOR PARA CASA DE HORUS
+                    if (position[0] + n, position[1]) == (9, 2):
+                        if n == 4:
+                            moves_list.append((position[0] + n, position[1]))
+    # TODO PONTOS + NOMES
     # vez das pretas
     if turn == 'spool':
         # se linha 1
         if position[1] == 0:
-            if (position[0] + n, position[1]) not in black_location and not threes and not pairs:
+            if (position[0] + n, position[1]) not in black_location:
                 # se for passar da linha 1 para linha 2 do tabuleiro
                 if position[0] + n > 9:
                     linechange = (position[0] + n - 9) - 1  # menos 1 devido a se andar +1 em y e nao em x
-                    if (9 - linechange, position[1] + 1) not in black_location:
+                    if (9 - linechange, position[1] + 1) == (5, 1):
+                        pass
+                    else:
                         moves_list.append((9 - linechange, position[1] + 1))
                 # sem trocas de linha:
                 if 0 <= position[0] + n <= 9:
@@ -173,7 +208,7 @@ def check_moves(n, position, turn):
             if (position[0] - n, position[1]) not in black_location:
                 if (position[0] - n, position[1]) == (5, 1) and (position[0] - n, position[1]) in white_location:
                     pass
-                elif not pairs and not threes:
+                else:
                     # se for passar da linha 2 para a linha 3 do tabuleiro
                     if position[0] - n < 0:
                         linechange = -(position[0] - n) - 1  # menos 1 devido ao quadrado que se anda em coluna dado ao y
@@ -186,8 +221,28 @@ def check_moves(n, position, turn):
         # se linha 3
         if position[1] == 2:
             if (position[0] + n, position[1]) not in black_location:
-                if 0 <= position[0] + n <= 4 and not pairs and not threes:
+                if 0 <= position[0] + n <= 4:
                     moves_list.append((position[0] + n, position[1]))
+                # SE FOR PARA A CASA DA BELEZA
+                if (position[0] + n, position[1]) == (5, 2) and (position[0] + n, position[1]) not in white_location:
+                    moves_list.append((position[0] + n, position[1]))
+                # SE ESTIVER NA CASA DA BELEZA
+                if (position[0], position[1]) == (5, 2):
+                    # SE CASA DAS AGUAS
+                    if (position[0] + n, position[1]) == (6, 2):
+                        moves_list.append((position[0] + n, position[1]))
+                    # SE FOR PARA CASA DOS TRES JUIZES
+                    if (position[0] + n, position[1]) == (7, 2):
+                        if n == 2:
+                            moves_list.append((position[0] + n, position[1]))
+                    # SE FOR PARA CASA DOS DOIS JUIZES
+                    if (position[0] + n, position[1]) == (8, 2):
+                        if n == 3:
+                            moves_list.append((position[0] + n, position[1]))
+                    # SE FOR PARA CASA DE HORUS
+                    if (position[0] + n, position[1]) == (9, 2):
+                        if n == 4:
+                            moves_list.append((position[0] + n, position[1]))
 
     return moves_list
 
@@ -380,16 +435,18 @@ while running:
                 sticks = throw_sticks()
                 black_options = check_options(sticks, black_pieces, black_location, 'spool')
                 white_options = check_options(sticks, white_pieces, white_location, 'cone')
+            if sticks == 0:
+                window.blit(sticks_img, (78, 371))
             if sticks == 1:
-                window.blit(um, (0, 50))
+                window.blit(um, (78, 371))
             if sticks == 2:
-                window.blit(dois, (0, 50))
+                window.blit(dois, (78, 371))
             if sticks == 3:
-                window.blit(tres, (0, 50))
+                window.blit(tres, (78, 371))
             if sticks == 4:
-                window.blit(quatro, (0, 50))
+                window.blit(quatro, (78, 371))
             if sticks == 5:
-                window.blit(cinco, (0, 50))
+                window.blit(cinco, (78, 371))
 
             # ok esta parte é preciso mesmo comentar:
             # basicamente esta parte do codigo permite alterar o tamanho da janela e manter o tabuleiro centrado
@@ -397,6 +454,7 @@ while running:
             x_tabuleiro = 1.2990  # escala x relacao tabuleiro janela
             y_tabuleiro = 1.5104  # escala y relacao tabuleiro janela
             window.blit(tabuleiro_img, (width - width / x_tabuleiro, height - height / y_tabuleiro))
+
             # window.blit(white_img, (485, 380))
             draw_pieces()
             if selection != 100:
@@ -415,6 +473,7 @@ while running:
             y_coord = (event.pos[1] // 98) - 4
             click_coords = (x_coord, y_coord)
             # TODO bot TURN HERE + HOW HE CHOOSES CLICK COORDS
+
             # if white turn:
             if turn_step <= 1:
                 if click_coords in white_location:
@@ -427,6 +486,15 @@ while running:
                     if click_coords in black_location:
                         black_piece = black_location.index(click_coords)
                         black_location[black_piece] = swap_w_white
+                    else:
+                        if white_location[selection] == (6, 2):
+                            if (5, 1) in black_location:
+                                if (6, 1) in black_location:
+                                    white_location[selection] = (7, 1)
+                                else:
+                                    white_location[selection] = (6, 1)
+                            else:
+                                white_location[selection] = (5, 1)
                     black_options = check_options(sticks, black_pieces, black_location, 'spool')
                     white_options = check_options(sticks, white_pieces, white_location, 'cone')
                     turn_step = 2
@@ -446,6 +514,15 @@ while running:
                     if click_coords in white_location:
                         white_piece = white_location.index(click_coords)
                         white_location[white_piece] = swap_w_black
+                    else:
+                        if white_location[selection] == (6, 2):
+                            if (5, 1) in black_location:
+                                if (6, 1) in black_location:
+                                    white_location[selection] = (7, 1)
+                                else:
+                                    white_location[selection] = (6, 1)
+                            else:
+                                white_location[selection] = (5, 1)
                     black_options = check_options(sticks, black_pieces, black_location, 'spool')
                     white_options = check_options(sticks, white_pieces, white_location, 'cone')
                     turn_step = 0
