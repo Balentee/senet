@@ -22,6 +22,8 @@ menu_state = "main"
 sticks = 0
 swap_w_white = 0
 swap_w_black = 0
+white_pontuation = 0
+black_pontuation = 0
 
 # cores
 white = (255, 255, 255)
@@ -137,7 +139,7 @@ def check_moves(n, position, turn):
                 if (position[0] + n) > 9:
                     linechange = (position[0] + n - 9) - 1  # menos 1 devido a se andar +1 em y e nao em x
                     if (9 - linechange, position[1] + 1) not in white_location:
-                        if (9 - linechange, position[1] + 1) == (5, 1):
+                        if (9 - linechange, position[1] + 1) == (5, 1) in black_location:
                             pass
                         else:
                             moves_list.append((9 - linechange, position[1] + 1))
@@ -169,6 +171,7 @@ def check_moves(n, position, turn):
                 # SE FOR PARA A CASA DA BELEZA
                 if (position[0] + n, position[1]) == (5, 2) and (position[0] + n, position[1]) not in black_location:
                     moves_list.append((position[0] + n, position[1]))
+                # A PARTIR DAQUI PODIA SER MAIS RESUMIDO MAIS FICA MAIS EXPLICITO ASSIM
                 # SE ESTIVER NA CASA DA BELEZA
                 if (position[0], position[1]) == (5, 2):
                     # SE CASA DAS AGUAS
@@ -486,15 +489,36 @@ while running:
                     if click_coords in black_location:
                         black_piece = black_location.index(click_coords)
                         black_location[black_piece] = swap_w_white
-                    else:
-                        if white_location[selection] == (6, 2):
-                            if (5, 1) in black_location:
-                                if (6, 1) in black_location:
-                                    white_location[selection] = (7, 1)
-                                else:
-                                    white_location[selection] = (6, 1)
+
+                    # CASAS ESPECIAIS
+                    # CASA DA AGUA
+                    if white_location[selection] == (6, 2):
+                        # casas possiveis para cair se calhar na casa da água
+                        # este for encontra a primeira casa vazia depois da casa da vida caso 5,1 nao esteja livre
+                        for i in [(5, 1), (6, 1), (7, 1), (8, 1), (9, 1), (9, 0), (8, 0), (7, 0), (6, 0), (5, 0)]:
+                            if i in black_location or i in white_location:
+                                pass
                             else:
-                                white_location[selection] = (5, 1)
+                                white_location[selection] = i
+                                break
+
+                    # CASA DOS 3 JUIZES
+                    if white_location[selection] == (7, 2):
+                        white_piece = white_location.index(click_coords)
+                        white_pontuation += 1
+                        white_pieces.pop(white_piece)
+                    # CASA DOS 2 JUIZES
+                    if white_location[selection] == (8, 2):
+                        white_piece = white_location.index(click_coords)
+                        white_pontuation += 1
+                        white_pieces.pop(white_piece)
+                    # CASA DE HORUS
+                    if white_location[selection] == (9, 2):
+                        white_piece = white_location.index(click_coords)
+                        white_pontuation += 1
+                        white_pieces.pop(white_piece)
+
+
                     black_options = check_options(sticks, black_pieces, black_location, 'spool')
                     white_options = check_options(sticks, white_pieces, white_location, 'cone')
                     turn_step = 2
@@ -514,15 +538,34 @@ while running:
                     if click_coords in white_location:
                         white_piece = white_location.index(click_coords)
                         white_location[white_piece] = swap_w_black
-                    else:
-                        if white_location[selection] == (6, 2):
-                            if (5, 1) in black_location:
-                                if (6, 1) in black_location:
-                                    white_location[selection] = (7, 1)
-                                else:
-                                    white_location[selection] = (6, 1)
+                    if black_location[selection] == (6, 2):
+                        # casas possiveis para cair se calhar na casa da água
+                        # este for encontra a primeira casa vazia depois da casa da vida caso 5,1 nao esteja livre
+                        for i in [(5, 1), (6, 1), (7, 1), (8, 1), (9, 1), (9, 0), (8, 0), (7, 0), (6, 0), (5, 0)]:
+                            if i in black_location or i in white_location:
+                                pass
                             else:
-                                white_location[selection] = (5, 1)
+                                white_location[selection] = i
+                                break
+                        else:
+                            black_location[selection] = (5, 1)
+
+                    # CASA DOS 3 JUIZES
+                    if black_location[selection] == (7, 2):
+                        black_piece = white_location.index(click_coords)
+                        black_pontuation += 1
+                        black_pieces.pop(black_piece)
+                    # CASA DOS 2 JUIZES
+                    if black_location[selection] == (8, 2):
+                        black_piece = white_location.index(click_coords)
+                        black_pontuation += 1
+                        black_pieces.pop(black_piece)
+                    # CASA DE HORUS
+                    if black_location[selection] == (9, 2):
+                        black_piece = white_location.index(click_coords)
+                        black_pontuation += 1
+                        black_pieces.pop(black_piece)
+
                     black_options = check_options(sticks, black_pieces, black_location, 'spool')
                     white_options = check_options(sticks, white_pieces, white_location, 'cone')
                     turn_step = 0
