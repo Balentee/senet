@@ -1,14 +1,15 @@
 O QUE FAZER
 
-v0.4  -  1. ACABAR 3 CASAS FINAIS + ver casa das aguas
 v0.5  -  2. CRIAR MENU
             START>NOVO JOGO
                 |OPCOES      >NOVOJOGO    >CARREGAR ULT. JOGO
             NOVO JOGO>
                 |OPCOES     >NESTE PC   >COM BOT
+                | + PEDIR NOME
+
 v0.6  -  3. MOSTRAR NO ECRA QUEM JOGA + PONTUACAO
 v0.7  -  4. CRIAR MANEIRA DE SALVAR JOGO
 v0.8  -  5. LOCAL DO TUTORIAL
 v0.9  -  6. COMPOR two in a row + three in a row
-v1.0  -  7. IMPROVE AESTHETICS
+v1.0  -  7. IMPROVE AESTHETICS + RELATÓRIO
 

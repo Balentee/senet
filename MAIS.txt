@@ -4,3 +4,14 @@ se eu souber a posição em que vou calhar só tenho de saber:
     - se houver um à frente da mesma cor não junta à lista
     - se houver um a trás da mesma cor não junta à lista
     - se os dois casos se verificarem não junta à lista
+
+como fazer o two:
+    primeiro
+        se pos + n not in adversaria
+    else
+        para pos + n-1 e pos + n + 1
+        se for da peça adversária adiciona 1
+
+como fazer o three:
+    primeiro:
+        se
