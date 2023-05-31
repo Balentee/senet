@@ -13,3 +13,5 @@ linha 174:
     if (position[0] - n, position[1]) == (5, 1) and (position[0] - n, position[1]) in white_location:
         pass
     elif .....
+
+-----------------VITOR NAO VEIO ;-;--------------------

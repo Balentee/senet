@@ -15,3 +15,7 @@ como fazer o two:
 como fazer o three:
     primeiro:
         se
+
+        if can_point == True
+            do
+        else:

@@ -4,29 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a054bc1f-430e-4f84-b29d-e3a70e2afa18" name="Changes" comment="v0.4&#10;&#10;- 1. ACABAR 3 CASAS FINAIS + ver casa das aguas&#10;&#10;- FEITO">
-      <change afterPath="$PROJECT_DIR$/img/OK.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/Player_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/Player_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/button_back.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/button_bot_game.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/button_load.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/button_new_game.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/button_pvp_game.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/button_quit_to_menu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/button_rules.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/button_save.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/by Balente.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/input.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/parchment.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/title.png" afterDir="false" />
+    <list default="true" id="a054bc1f-430e-4f84-b29d-e3a70e2afa18" name="Changes" comment="v0.5  &#10;&#10;-  2. CRIAR MENU&#10;      &quot;START&gt;NOVO JOGO&#10;        |OPCOES      &gt;NOVOJOGO    &gt;CARREGAR ULT. JOGO&#10;     NOVO JOGO&gt;&#10;     |OPCOES     &gt;NESTE PC   &gt;COM BOT&#10;           | + PEDIR NOME&quot;&#10;- FEITO + MOSTRAR NO ECRA QUEM JOGA&#10;&#10;- Falta pontuacao para  v0.6">
+      <change afterPath="$PROJECT_DIR$/img/button_restart.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/point0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/point1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/point2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/point3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/point4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/point5.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/310523" beforeDir="false" afterPath="$PROJECT_DIR$/310523" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MAIS.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MAIS.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NA AULA" beforeDir="false" afterPath="$PROJECT_DIR$/NA AULA" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/display.py" beforeDir="false" afterPath="$PROJECT_DIR$/display.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/button_quit.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/button_quit.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/button_resume.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/button_resume.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/button_start.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/button_start.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/blue.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/blue.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/button_save.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/parchment.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/red.png" beforeDir="false" afterPath="$PROJECT_DIR$/img/red.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +113,7 @@
       <workItem from="1684943118170" duration="45653000" />
       <workItem from="1685098974986" duration="28768000" />
       <workItem from="1685268414693" duration="33761000" />
-      <workItem from="1685477206821" duration="31589000" />
+      <workItem from="1685477206821" duration="35204000" />
     </task>
     <task id="LOCAL-00001" summary="ESTOU A TESTAR MAS NUM TÁ FÁCIL">
       <created>1683812469589</created>
@@ -248,7 +241,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685484783956</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="v0.5  &#10;&#10;-  2. CRIAR MENU&#10;      &quot;START&gt;NOVO JOGO&#10;        |OPCOES      &gt;NOVOJOGO    &gt;CARREGAR ULT. JOGO&#10;     NOVO JOGO&gt;&#10;     |OPCOES     &gt;NESTE PC   &gt;COM BOT&#10;           | + PEDIR NOME&quot;&#10;- FEITO + MOSTRAR NO ECRA QUEM JOGA&#10;&#10;- Falta pontuacao para  v0.6">
+      <created>1685538600863</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1685538600863</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +279,8 @@
     <MESSAGE value="v0.3.1&#10;&#10;- ainda a tentar resolver two e threes&#10;&#10;- bernas e vasco olá seus c@rls, hahahaha espiões da wish&#10;&#10;- se mais alguem está aí, ponham se finos e lambões, este código é meu :((((" />
     <MESSAGE value="v0.3.5&#10;&#10;- ora bem big changes nos sticks&#10;&#10;- montes de correções de bugs &#10;&#10;-vao agora repartir se os commits em 7 grandes updates, versao completa com o essencial na v1.0 em principio" />
     <MESSAGE value="v0.4&#10;&#10;- 1. ACABAR 3 CASAS FINAIS + ver casa das aguas&#10;&#10;- FEITO" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.4&#10;&#10;- 1. ACABAR 3 CASAS FINAIS + ver casa das aguas&#10;&#10;- FEITO" />
+    <MESSAGE value="v0.5  &#10;&#10;-  2. CRIAR MENU&#10;      &quot;START&gt;NOVO JOGO&#10;        |OPCOES      &gt;NOVOJOGO    &gt;CARREGAR ULT. JOGO&#10;     NOVO JOGO&gt;&#10;     |OPCOES     &gt;NESTE PC   &gt;COM BOT&#10;           | + PEDIR NOME&quot;&#10;- FEITO + MOSTRAR NO ECRA QUEM JOGA&#10;&#10;- Falta pontuacao para  v0.6" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.5  &#10;&#10;-  2. CRIAR MENU&#10;      &quot;START&gt;NOVO JOGO&#10;        |OPCOES      &gt;NOVOJOGO    &gt;CARREGAR ULT. JOGO&#10;     NOVO JOGO&gt;&#10;     |OPCOES     &gt;NESTE PC   &gt;COM BOT&#10;           | + PEDIR NOME&quot;&#10;- FEITO + MOSTRAR NO ECRA QUEM JOGA&#10;&#10;- Falta pontuacao para  v0.6" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -295,7 +296,7 @@
     <SUITE FILE_PATH="coverage/senet$teste.coverage" NAME="teste Coverage Results" MODIFIED="1685480795192" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/senet$game.coverage" NAME="game Coverage Results" MODIFIED="1684435533249" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/senet$test_rand.coverage" NAME="test_rand Coverage Results" MODIFIED="1684949244877" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/senet$display.coverage" NAME="display Coverage Results" MODIFIED="1685538238545" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/senet$display.coverage" NAME="display Coverage Results" MODIFIED="1685542006780" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/senet$senet.coverage" NAME="senet Coverage Results" MODIFIED="1684412350120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/senet$main.coverage" NAME="main Coverage Results" MODIFIED="1684410582667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

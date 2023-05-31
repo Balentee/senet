@@ -13,13 +13,15 @@ info = pygame.display.Info()
 width, height = info.current_w, info.current_h
 
 window = pygame.display.set_mode((width, height - 60), pygame.RESIZABLE)       # display da janela
-pygame.display.set_caption("Senet Game by Balente & Skimmer")   # titulo da janela
+pygame.display.set_caption("Senet: An Egyptian Board Game")   # titulo da janela
 
 # menu variables and states
 game_start = False
 game_pause = False
 game_bot = False
 menu_state = "main"
+can_point = False
+restart = False
 
 # game variables
 sticks = 0
@@ -62,9 +64,16 @@ input_img = pygame.image.load("img/input.png").convert_alpha()
 player1_img = pygame.image.load("img/Player_1.png").convert_alpha()
 player2_img = pygame.image.load("img/Player_2.png").convert_alpha()
 ok_img = pygame.image.load("img/OK.png").convert_alpha()
-save_img = pygame.image.load("img/button_save.png").convert_alpha()
+restart_img = pygame.image.load("img/button_restart.png").convert_alpha()
 quit_to_menu_img = pygame.image.load("img/button_quit_to_menu.png").convert_alpha()
-parchment_img = pygame.image.load("img/parchment.png").convert_alpha()
+red_img = pygame.image.load("img/red.png").convert_alpha()
+blue_img = pygame.image.load("img/blue.png").convert_alpha()
+point0 = pygame.image.load("img/point0.png").convert_alpha()
+point1 = pygame.image.load("img/point1.png").convert_alpha()
+point2 = pygame.image.load("img/point2.png").convert_alpha()
+point3 = pygame.image.load("img/point3.png").convert_alpha()
+point4 = pygame.image.load("img/point4.png").convert_alpha()
+point5 = pygame.image.load("img/point5.png").convert_alpha()
 
 # som
 mixer.music.load("audio/background.wav")
@@ -82,7 +91,7 @@ throw_button = button.Button(78, 371, roll_img, 1)
 back_name_button = button.Button(600, 725, back_img, 1)
 ok_button = button.Button(920, 725, ok_img, 1)
 resume_button = button.Button(819, 374, resume_img, 1)
-save_button = button.Button(819, 493, save_img, 1)
+restart_button = button.Button(819, 493, restart_img, 1)
 rules_pause_button = button.Button(819, 612, rules_img, 1)
 quit_to_menu_button = button.Button(819, 731, quit_to_menu_img, 1)
 quit_pause_button = button.Button(819, 850, quit_img, 1)
@@ -451,6 +460,27 @@ running = True
 while running:
     window.blit(background, (0, 0))
 
+    if restart:
+        white_pieces = ['cone', 'cone', 'cone', 'cone', 'cone']
+        white_location = [(0, 0), (2, 0), (4, 0), (6, 0), (8, 0)]
+        black_pieces = ['spool', 'spool', 'spool', 'spool', 'spool']
+        black_location = [(1, 0), (3, 0), (5, 0), (7, 0), (9, 0)]
+        piece_list = ['cone', 'spool']
+        sticks = 0
+        swap_w_white = 0
+        swap_w_black = 0
+        white_pontuation = 0
+        black_pontuation = 0
+        inputt = ' '
+        wrt = 1
+        turn_step = 0
+        selection = 100  # variavel para usar comoo flag de peça selecionada
+        valid_moves = []  # check ações válidas
+        menu_state = "start"
+        restart = False
+        game_pause = False
+        game_start = False
+
     if menu_state == "main":
         window.blit(title, (678, 123))
         window.blit(bybalente, (905, 330))
@@ -484,7 +514,6 @@ while running:
             if comes == "pause":
                 menu_state = "pause"
 
-
     if menu_state == "name":
         window.blit(title, (678, 123))
         window.blit(input_img, (537, 589))
@@ -512,6 +541,7 @@ while running:
                 if ok_button.draw(window):
                     if 3 <= len(inputt) <= 7:
                         player2_str = inputt
+                        inputt = ""
                         game_start = True
                         menu_state = "game"
                         wrt = 1
@@ -531,6 +561,7 @@ while running:
                 if 3 <= len(inputt) <= 7:
                     inputt = "BOT"
                     player2_name = arial.render(inputt, True, (0, 0, 0))
+                    inputt = ""
                     game_start = True
                     menu_state = "game"
                 else:
@@ -545,6 +576,10 @@ while running:
             player2_name = ""
             inputt = ""
 
+    # TODO: botão de guardar (que vai guardar estado atual do jogo num ficheiro)
+    # TODO: PRIMEIRO LIMPA FICHEIRO, DEPOIS SALVA DEPOIS VERIFICA SE ESTA VAZIO
+    # TODO: SE ESTIVER VAZIO DIZ ERRO SENAO DIZ SAVED
+    # nao esquecer o -- menu_state == "save" para depois fazer menu save com if
     if game_start:
         # verificar se o jogo está pausado
         if game_pause:
@@ -555,12 +590,8 @@ while running:
                 if resume_button.draw(window):
                     game_pause = False
                     menu_state = "game"
-                if save_button.draw(window):
-                    pass
-                    # TODO: botão de guardar (que vai guardar estado atual do jogo num ficheiro)
-                    # TODO: PRIMEIRO LIMPA FICHEIRO, DEPOIS SALVA DEPOIS VERIFICA SE ESTA VAZIO
-                    # TODO: SE ESTIVER VAZIO DIZ ERRO SENAO DIZ SAVED
-                    # nao esquecer o -- menu_state == "save" para depois fazer menu save com if
+                if restart_button.draw(window):
+                    restart = True
                 if rules_pause_button.draw(window):
                     menu_state = "rules"
                     comes = "pause"
@@ -600,10 +631,42 @@ while running:
             # TODO: IF TURN.... PRINT PLAYER NAME
             # window.blit(white_img, (485, 380))
             if turn_step <= 1:
-                window.blit(player1_name, (938, 792))
+                window.blit(red_img, (830, 743))
+                window.blit(player1_name, (943, 766))
+                # PONTUACAO:
+                if white_pontuation == 0:
+                    window.blit(point0, (891, 780))
+                if white_pontuation == 1:
+                    window.blit(point1, (891, 780))
+                if white_pontuation == 2:
+                    window.blit(point2, (891, 780))
+                if white_pontuation == 3:
+                    window.blit(point3, (891, 780))
+                if white_pontuation == 4:
+                    window.blit(point4, (891, 780))
+                if white_pontuation == 5:
+                    window.blit(point5, (891, 780))
+                    game_start = False
+                    game_win = "white"
 
             if turn_step >= 2:
-                window.blit(player2_name, (938, 792))
+                window.blit(blue_img, (830, 743))
+                window.blit(player2_name, (943, 766))
+                # PONTUACAO:
+                if black_pontuation == 0:
+                    window.blit(point0, (891, 780))
+                if black_pontuation == 1:
+                    window.blit(point1, (891, 780))
+                if black_pontuation == 2:
+                    window.blit(point2, (891, 780))
+                if black_pontuation == 3:
+                    window.blit(point3, (891, 780))
+                if black_pontuation == 4:
+                    window.blit(point4, (891, 780))
+                if black_pontuation == 5:
+                    window.blit(point5, (891, 780))
+                    game_start = False
+                    game_win = "white"
 
             draw_pieces()
 
@@ -640,11 +703,12 @@ while running:
                         turn_step = 1
                 if click_coords in valid_moves and selection != 100:
                     white_location[selection] = click_coords
+                    # SE TROCAR COM OUTRA
                     if click_coords in black_location:
                         black_piece = black_location.index(click_coords)
                         black_location[black_piece] = swap_w_white
+                    # CASAS ESPECIAIS
                     else:
-                        # CASAS ESPECIAIS
                         # CASA DA BELEZA
                         if white_location[selection] == (5, 2) and sticks == 5:
                             white_piece = white_location.index(click_coords)
@@ -682,6 +746,7 @@ while running:
 
                     black_options = check_options(sticks, black_pieces, black_location, 'spool')
                     white_options = check_options(sticks, white_pieces, white_location, 'cone')
+                    # TODO: BOT CLICK TO CONTINUE
                     turn_step = 2
                     selection = 100
                     sticks = 0
@@ -739,6 +804,7 @@ while running:
 
                     black_options = check_options(sticks, black_pieces, black_location, 'spool')
                     white_options = check_options(sticks, white_pieces, white_location, 'cone')
+                    # TODO: BOT CLICK TO CONTINUE
                     turn_step = 0
                     selection = 100
                     sticks = 0
