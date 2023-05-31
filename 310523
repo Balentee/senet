@@ -1,8 +1,42 @@
 O QUE FAZER
 
+V0.7    - BOT CRIADO
+        - added # TODO: https://youtube.com/shorts/WWIo6jvC5xA?feature=share ~ detalhe nice
+        - totalmente aleartorio quem começa e com que cor
+        - added some features
 
-v0.7  -  4. CRIAR MANEIRA DE SALVAR JOGO
-v0.8  -  5. LOCAL DO TUTORIAL
-v0.9  -  6. COMPOR two in a row + three in a row
-v1.0  -  7. IMPROVE AESTHETICS + RELATÓRIO
+v0.8    -  4. CRIAR MANEIRA DE SALVAR JOGO
+         COM JSON
+            apos pensar:
+                talvez resulte se guardar as seguintes variáveis:
+                GUARDAR EM VARIAVEIS A PARTE QUE SE IGUALAM A ESTAS
+                turn_step
+                w pieces
+                w loc
+                bl pieces
+                bl locati
+                player1_name
+                player2_name
+                w pountuation
+                b pountuation
+
+                ... talvez n seja preciso... MAS VAI SER
+                bla options
+                whi options
+
+                - NO IN ESTAS VARIAVEIS IGUAIS AS DA DATA
+                - NO OUT IGUALAR AS DA DATA A ESTAS
+
+
+
+v0.8.5  -  5. LOCAL DO TUTORIAL + WIN SCREEN ( try again = True)
+v0.9    -  6. COMPOR two in a row + three in a row
+v1.0    -  7. IMPROVE AESTHETICS + RELATÓRIO
+
+
+o bot so tem de dar rand das click coords para selecionar
+e seguir essa seleção
+
+se nao tiver nada volta a fazer
+
 
