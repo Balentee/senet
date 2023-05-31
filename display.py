@@ -1,4 +1,5 @@
 import pygame
+import pygame.mouse
 from pygame import mixer
 from pygame.locals import *  # para VIDEORESIZE
 import button
@@ -31,6 +32,9 @@ white_pontuation = 0
 black_pontuation = 0
 inputt = ' '
 wrt = 1
+bot_click = 0
+game_win = ""
+page = 1
 
 # cores
 white = (255, 255, 255)
@@ -74,6 +78,15 @@ point2 = pygame.image.load("img/point2.png").convert_alpha()
 point3 = pygame.image.load("img/point3.png").convert_alpha()
 point4 = pygame.image.load("img/point4.png").convert_alpha()
 point5 = pygame.image.load("img/point5.png").convert_alpha()
+cursor = pygame.image.load("img/cursor.png").convert_alpha()
+w_win = pygame.image.load("img/w_win.png").convert_alpha()
+b_win = pygame.image.load("img/b_win.png").convert_alpha()
+next_img = pygame.image.load("img/button_next.png").convert_alpha()
+rules1_img = pygame.image.load("img/rules1.png").convert_alpha()
+rules2_img = pygame.image.load("img/rules2.png").convert_alpha()
+
+# esconder rato original
+pygame.mouse.set_visible(False)
 
 # som
 mixer.music.load("audio/background.wav")
@@ -95,6 +108,9 @@ restart_button = button.Button(819, 493, restart_img, 1)
 rules_pause_button = button.Button(819, 612, rules_img, 1)
 quit_to_menu_button = button.Button(819, 731, quit_to_menu_img, 1)
 quit_pause_button = button.Button(819, 850, quit_img, 1)
+quit_to_menu_win_button = button.Button(815, 250, quit_to_menu_img, 1)
+next_button = button.Button(1371, 906, next_img, 1)
+back_rules_button = button.Button(117, 906, back_img, 1)
 
 
 # peças do jogo (TABULEIRO --> 3*10 -> 30 linha 1 começa (0, 0) e acaba (0,10) ver notas.txt
@@ -110,6 +126,7 @@ piece_list = ['cone', 'spool']
 turn_step = 0
 selection = 100  # variavel para usar comoo flag de peça selecionada
 valid_moves = []  # check ações válidas
+go_bot = []
 
 # funções
 # funcao mostrar_texto
@@ -208,31 +225,33 @@ def check_moves(n, position, turn):
             if (position[0] + n, position[1]) not in white_location:
                 if 0 <= position[0] + n <= 4:
                     moves_list.append((position[0] + n, position[1]))
-                # SE FOR PARA A CASA DA BELEZA
-                if (position[0] + n, position[1]) == (5, 2) and (position[0] + n, position[1]) not in black_location:
-                    moves_list.append((position[0] + n, position[1]))
-                # A PARTIR DAQUI PODIA SER MAIS RESUMIDO MAIS FICA MAIS EXPLICITO ASSIM
-                # SE ESTIVER NA CASA DA BELEZA
-                if (position[0], position[1]) == (5, 2):
-                    if n == 5:
-                        moves_list.append((position[0], position[1]))
+                if (position[0] + n, position[1]) not in black_location:
+                    # SE FOR PARA A CASA DA BELEZA
+                    if (position[0] + n, position[1]) == (5, 2):
+                        moves_list.append((position[0] + n, position[1]))
+                    # A PARTIR DAQUI PODIA SER MAIS RESUMIDO MAIS FICA MAIS EXPLICITO ASSIM
+                    # SE ESTIVER NA CASA DA BELEZA
+                    if (position[0], position[1]) == (5, 2):
+                        if n == 5:
+                            moves_list.append((position[0], position[1]))
+                        elif 4 < position[0] + n <= 9:
+                            moves_list.append((position[0] + n, position[1]))
                     # SE CASA DAS AGUAS
-                    if (position[0] + n, position[1]) == (6, 2):
+                    if (position[0], position[1]) == (6, 2):
                         moves_list.append((6, 2))
                     # SE FOR PARA CASA DOS TRES JUIZES
-                    if (position[0] + n, position[1]) == (7, 2):
-                        if n == 2:
-                            moves_list.append((position[0] + n, position[1]))
-                    # SE FOR PARA CASA DOS DOIS JUIZES
-                    if (position[0] + n, position[1]) == (8, 2):
+                    if (position[0], position[1]) == (7, 2):
                         if n == 3:
-                            moves_list.append((position[0] + n, position[1]))
+                            moves_list.append((7, 2))
+                    # SE FOR PARA CASA DOS DOIS JUIZES
+                    if (position[0], position[1]) == (8, 2):
+                        if n == 2:
+                            moves_list.append((8, 2))
                     # SE FOR PARA CASA DE HORUS
-                    if (position[0] + n, position[1]) == (9, 2):
-                        if n == 4:
-                            moves_list.append((position[0] + n, position[1]))
+                    if (position[0], position[1]) == (9, 2):
+                        if n == 1:
+                            moves_list.append((9, 2))
 
-    # TODO PONTOS + NOMES
     # vez das pretas
     if turn == 'spool':
         # se linha 1
@@ -269,28 +288,32 @@ def check_moves(n, position, turn):
             if (position[0] + n, position[1]) not in black_location:
                 if 0 <= position[0] + n <= 4:
                     moves_list.append((position[0] + n, position[1]))
-                # SE FOR PARA A CASA DA BELEZA
-                if (position[0] + n, position[1]) == (5, 2) and (position[0] + n, position[1]) not in white_location:
-                    moves_list.append((position[0] + n, position[1]))
-                # SE ESTIVER NA CASA DA BELEZA
-                if (position[0], position[1]) == (5, 2):
-                    if n == 5:
-                        moves_list.append((position[0], position[1]))
-                    # SE CASA DAS AGUAS
-                    if (position[0] + n, position[1]) == (6, 2):
+                if (position[0] + n, position[1]) not in white_location:
+                    # SE FOR PARA A CASA DA BELEZA
+                    if (position[0] + n, position[1]) == (5, 2):
                         moves_list.append((position[0] + n, position[1]))
-                    # SE FOR PARA CASA DOS TRES JUIZES
-                    if (position[0] + n, position[1]) == (7, 2):
-                        if n == 2:
+                    # A PARTIR DAQUI PODIA SER MAIS RESUMIDO MAIS FICA MAIS EXPLICITO ASSIM
+                    # SE ESTIVER NA CASA DA BELEZA
+                    if (position[0], position[1]) == (5, 2):
+                        if n == 5:
+                            moves_list.append((position[0], position[1]))
+                        elif 4 < position[0] + n <= 9:
                             moves_list.append((position[0] + n, position[1]))
-                    # SE FOR PARA CASA DOS DOIS JUIZES
-                    if (position[0] + n, position[1]) == (8, 2):
+                        # SE CASA DAS AGUAS
+                    if (position[0], position[1]) == (6, 2):
+                        moves_list.append((6, 2))
+                        # SE FOR PARA CASA DOS TRES JUIZES
+                    if (position[0], position[1]) == (7, 2):
                         if n == 3:
-                            moves_list.append((position[0] + n, position[1]))
-                    # SE FOR PARA CASA DE HORUS
-                    if (position[0] + n, position[1]) == (9, 2):
-                        if n == 4:
-                            moves_list.append((position[0] + n, position[1]))
+                            moves_list.append((7, 2))
+                        # SE FOR PARA CASA DOS DOIS JUIZES
+                    if (position[0], position[1]) == (8, 2):
+                        if n == 2:
+                            moves_list.append((8, 2))
+                        # SE FOR PARA CASA DE HORUS
+                    if (position[0], position[1]) == (9, 2):
+                        if n == 1:
+                            moves_list.append((9, 2))
 
     return moves_list
 
@@ -314,7 +337,7 @@ def draw_valid(moves):
 
 # funcoes REGRAS
 # funcao two_in_a_row → se duas juntas, nao pode substituir mas pode passar à frente
-def two_in_a_row(n, position, turn):
+'''def two_in_a_row(n, position, turn):
     # a funcao deve ser capaz de retornar false se for possivel saltar o pair, pois este n influencia isso
     there_are = 0
     maxim = n + 1  # n + 1, pois a casa onde calha o n pode ser a primeira peça de um par, entao tem de ler essa + 1
@@ -326,7 +349,7 @@ def two_in_a_row(n, position, turn):
             if position[1] == 0:
                 # se passar de linha e tiver um par:
                 if (position[0] + i) > 9:
-                    linechange = (position[0] + i - 9) - 1  #TODO rever condicao aqui
+                    linechange = (position[0] + i - 9) - 1
                     if (9 - linechange, position[1] + 1) in black_location:
                         there_are += 1
                 # se estiver na mesma linha e tiver par
@@ -354,7 +377,7 @@ def two_in_a_row(n, position, turn):
             if position[1] == 0:
                 # se passar de linha e tiver um par:
                 if (position[0] + i) > 9:
-                    linechange = (position[0] + i - 9) - 1  # TODO rever condicao aqui
+                    linechange = (position[0] + i - 9) - 1
                     if (9 - linechange, position[1] + 1) in white_location:
                         there_are += 1
                 # se estiver na mesma linha e tiver par
@@ -397,7 +420,7 @@ def three_in_a_row(n, position, turn):
             if position[1] == 0:
                 # se passar de linha e tiver um par:
                 if (position[0] + i) > 9:
-                    linechange = (position[0] + i - 9) - 1  # TODO rever condicao aqui
+                    linechange = (position[0] + i - 9) - 1
                     if (9 - linechange, position[1] + 1) in black_location:
                         there_are += 1
                 # se estiver na mesma linha e tiver par
@@ -425,7 +448,7 @@ def three_in_a_row(n, position, turn):
             if position[1] == 0:
                 # se passar de linha e tiver um par:
                 if (position[0] + i) > 9:
-                    linechange = (position[0] + i - 9) - 1  # TODO rever condicao aqui
+                    linechange = (position[0] + i - 9) - 1
                     if (9 - linechange, position[1] + 1) in white_location:
                         there_are += 1
                 # se estiver na mesma linha e tiver par
@@ -453,7 +476,7 @@ def three_in_a_row(n, position, turn):
 
     if there_are < 3:
         return False
-
+'''
 
 # loop do jogo
 running = True
@@ -478,6 +501,7 @@ while running:
         valid_moves = []  # check ações válidas
         menu_state = "start"
         restart = False
+        game_bot = False
         game_pause = False
         game_start = False
 
@@ -499,24 +523,37 @@ while running:
         if pvp_game_button.draw(window):
             menu_state = "name"
         if bot_game_button.draw(window):
-            menu_state = "name"
-            game_bot = True
+            menu_state = "start"
+            # game_bot = True
         if back_start_button.draw(window):
             menu_state = "main"
 
     if menu_state == "load":
-        pass
+        menu_state = "main"
 
     if menu_state == "rules":
-        if back_start_button.draw(window):
+        game_start = False
+        if page == 1:
+            window.blit(rules1_img, (237, 32))
+            if next_button.draw(window):
+                page = 2
+        if page == 2:
+            window.blit(rules2_img, (427, 32))
+
+        if back_rules_button.draw(window):
+            page = 1
+
             if comes == "main":
                 menu_state = "main"
             if comes == "pause":
+                game_start = True
+                game_pause = True
                 menu_state = "pause"
 
     if menu_state == "name":
         window.blit(title, (678, 123))
         window.blit(input_img, (537, 589))
+        # pvp - player vs player
         if not game_bot:
             if wrt == 1:
                 window.blit(player1_img, (537, 544))
@@ -551,8 +588,7 @@ while running:
                         player2_name = ""
                         inputt = ""
                         wrt = 1
-
-
+        # pvc- player vs computer
         else:
             window.blit(player1_img, (537, 544))
             player1_name = arial.render(inputt, True, (0, 0, 0))
@@ -569,6 +605,23 @@ while running:
                     player1_name = ""
                     player2_name = ""
                     inputt = ""
+
+        if menu_state == "game":
+            # who starts?
+            turn_step = random.choice([0, 2])
+            # if 0 -> white | if 2 -> black
+            random_colors = random.randint(1, 2)
+            # who white who black
+            if random_colors == 1:
+                white_player = player2_name  # cone = bot
+                black_player = player1_name  # spool = player
+                if game_bot:
+                    bot_turn = "cone"
+            else:
+                white_player = player1_name  # cone = player
+                black_player = player2_name  # spool = bot
+                if game_bot:
+                    bot_turn = "spool"
 
         if back_name_button.draw(window):
             menu_state = "start"
@@ -604,7 +657,18 @@ while running:
 
         else:
             display_text("Press esc to menu", arial, white, 0, 0)
-            if throw_button.draw(window) and sticks == 0:
+
+            '''if game_bot:
+                if sticks == 0:
+                    if next_st_button.draw(window):
+                        if bot_turn == "cone" and turn_step <= 1:
+                            bot_click = 1
+                        if bot_turn == "spool" and turn_step > 1:
+                            bot_click = 1
+                        else:
+                            bot_click = 0'''
+
+            if (throw_button.draw(window) or bot_click) and sticks == 0:
                 sticks = throw_sticks()
                 black_options = check_options(sticks, black_pieces, black_location, 'spool')
                 white_options = check_options(sticks, white_pieces, white_location, 'cone')
@@ -628,11 +692,11 @@ while running:
             x_tabuleiro = 1.2990  # escala x relacao tabuleiro janela
             y_tabuleiro = 1.5104  # escala y relacao tabuleiro janela
             window.blit(tabuleiro_img, (width - width / x_tabuleiro, height - height / y_tabuleiro))
-            # TODO: IF TURN.... PRINT PLAYER NAME
-            # window.blit(white_img, (485, 380))
+            draw_pieces()
+
             if turn_step <= 1:
                 window.blit(red_img, (830, 743))
-                window.blit(player1_name, (943, 766))
+                window.blit(white_player, (943, 766))
                 # PONTUACAO:
                 if white_pontuation == 0:
                     window.blit(point0, (891, 780))
@@ -651,7 +715,7 @@ while running:
 
             if turn_step >= 2:
                 window.blit(blue_img, (830, 743))
-                window.blit(player2_name, (943, 766))
+                window.blit(black_player, (943, 766))
                 # PONTUACAO:
                 if black_pontuation == 0:
                     window.blit(point0, (891, 780))
@@ -666,13 +730,27 @@ while running:
                 if black_pontuation == 5:
                     window.blit(point5, (891, 780))
                     game_start = False
-                    game_win = "white"
+                    game_win = "black"
 
-            draw_pieces()
+            if game_win == "white":
+                window.blit(w_win, (741,127))
+                if quit_to_menu_win_button.draw(window):
+                    restart = True
+                    game_pause = False
+                    game_start = False
+                    menu_state = "start"
+            if game_win == "black":
+                window.blit(b_win, (736, 135))
+                if quit_to_menu_win_button.draw(window):
+                    restart = True
+                    game_pause = False
+                    game_start = False
+                    menu_state = "start"
 
             if selection != 100:
                 valid_moves = check_valid_moves()
                 draw_valid(valid_moves)
+
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -691,17 +769,16 @@ while running:
             x_coord = (event.pos[0] // 98) - 5
             y_coord = (event.pos[1] // 98) - 4
             click_coords = (x_coord, y_coord)
-            # TODO bot TURN HERE + HOW HE CHOOSES CLICK COORDS
 
             # if white turn:
             if turn_step <= 1:
-                # NOME
                 if click_coords in white_location:
                     selection = white_location.index(click_coords)
                     swap_w_white = click_coords
                     if turn_step == 0:
                         turn_step = 1
                 if click_coords in valid_moves and selection != 100:
+                    previous_w_piece = white_location[selection]
                     white_location[selection] = click_coords
                     # SE TROCAR COM OUTRA
                     if click_coords in black_location:
@@ -710,13 +787,13 @@ while running:
                     # CASAS ESPECIAIS
                     else:
                         # CASA DA BELEZA
-                        if white_location[selection] == (5, 2) and sticks == 5:
+                        if white_location[selection] == (5, 2) and previous_w_piece == (5, 2):
                             white_piece = white_location.index(click_coords)
                             white_pontuation += 1
                             white_pieces.pop(white_piece)
                             white_location.pop(white_piece)
                         # CASA DA AGUA
-                        if white_location[selection] == (6, 2):
+                        elif white_location[selection] == (6, 2):
                             # casas possiveis para cair se calhar na casa da água
                             # este for encontra a primeira casa vazia depois da casa da vida caso 5,1 nao esteja livre
                             for i in [(5, 1), (6, 1), (7, 1), (8, 1), (9, 1), (9, 0), (8, 0), (7, 0), (6, 0), (5, 0)]:
@@ -726,27 +803,28 @@ while running:
                                     white_location[selection] = i
                                     break
                         # CASA DOS 3 JUIZES
-                        if white_location[selection] == (7, 2) and sticks == 3:
+                        elif white_location[selection] == (7, 2) and previous_w_piece == (7, 2):
                             white_piece = white_location.index(click_coords)
                             white_pontuation += 1
                             white_pieces.pop(white_piece)
                             white_location.pop(white_piece)
                         # CASA DOS 2 JUIZES
-                        if white_location[selection] == (8, 2) and sticks == 2:
+                        elif white_location[selection] == (8, 2) and previous_w_piece == (8, 2):
                             white_piece = white_location.index(click_coords)
                             white_pontuation += 1
                             white_pieces.pop(white_piece)
                             white_location.pop(white_piece)
                         # CASA DE HORUS
-                        if white_location[selection] == (9, 2) and sticks == 1:
+                        elif white_location[selection] == (9, 2) and previous_w_piece == (9, 2):
                             white_piece = white_location.index(click_coords)
                             white_pontuation += 1
                             white_pieces.pop(white_piece)
                             white_location.pop(white_piece)
+                    if not white_options:
+                        pass
 
                     black_options = check_options(sticks, black_pieces, black_location, 'spool')
                     white_options = check_options(sticks, white_pieces, white_location, 'cone')
-                    # TODO: BOT CLICK TO CONTINUE
                     turn_step = 2
                     selection = 100
                     sticks = 0
@@ -760,20 +838,22 @@ while running:
                     if turn_step == 2:
                         turn_step = 3
                 if click_coords in valid_moves and selection != 100:
+                    previous_b_piece = black_location[selection]
                     black_location[selection] = click_coords
                     if click_coords in white_location:
                         white_piece = white_location.index(click_coords)
                         white_location[white_piece] = swap_w_black
+                    # CASAS ESPECIAIS
                     else:
                         # CASAS ESPECIAIS
                         # CASA DA BELEZA
-                        if black_location[selection] == (5, 2) and sticks == 5:
+                        if black_location[selection] == (5, 2) and previous_b_piece == (5, 2):
                             black_piece = black_location.index(click_coords)
                             black_pontuation += 1
                             black_pieces.pop(black_piece)
                             black_location.pop(black_piece)
                         # CASA DA AGUA
-                        if black_location[selection] == (6, 2):
+                        elif black_location[selection] == (6, 2):
                             # casas possiveis para cair se calhar na casa da água
                             # este for encontra a primeira casa vazia depois da casa da vida caso 5,1 nao esteja livre
                             for i in [(5, 1), (6, 1), (7, 1), (8, 1), (9, 1), (9, 0), (8, 0), (7, 0), (6, 0),
@@ -784,23 +864,25 @@ while running:
                                     black_location[selection] = i
                                     break
                         # CASA DOS 3 JUIZES
-                        if black_location[selection] == (7, 2) and sticks == 3:
+                        elif black_location[selection] == (7, 2) and previous_b_piece == (7, 2):
                             black_piece = black_location.index(click_coords)
                             black_pontuation += 1
                             black_pieces.pop(black_piece)
                             black_location.pop(black_piece)
                         # CASA DOS 2 JUIZES
-                        if black_location[selection] == (8, 2) and sticks == 2:
+                        elif black_location[selection] == (8, 2) and previous_b_piece == (8, 2):
                             black_piece = black_location.index(click_coords)
                             black_pontuation += 1
                             black_pieces.pop(black_piece)
                             black_location.pop(black_piece)
                         # CASA DE HORUS
-                        if black_location[selection] == (9, 2) and sticks == 1:
+                        elif black_location[selection] == (9, 2) and previous_b_piece == (9, 2):
                             black_piece = black_location.index(click_coords)
                             black_pontuation += 1
                             black_pieces.pop(black_piece)
                             black_location.pop(black_piece)
+                    if not black_options:
+                        pass
 
                     black_options = check_options(sticks, black_pieces, black_location, 'spool')
                     white_options = check_options(sticks, white_pieces, white_location, 'cone')
@@ -809,6 +891,8 @@ while running:
                     selection = 100
                     sticks = 0
                     valid_moves = []
+
+
 
         if event.type == VIDEORESIZE:
             width, height = event.w, event.h
@@ -820,8 +904,11 @@ while running:
         # Rendering the screen
     # window.fill((250, 200, 100))  # Fill the window with color
         # Draw your game objects here using pygame.draw and other functions
+    # get mouse pos
+    cursor_pos = pygame.mouse.get_pos()
+    # draw cursor
+    window.blit(cursor, cursor_pos)
+
     pygame.display.update()  # Update the window display
 
 pygame.quit()
-
-# TODO: https://youtube.com/shorts/WWIo6jvC5xA?feature=share ~ detalhe nice

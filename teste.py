@@ -1,3 +1,4 @@
+import random
 n = 4
 
 a = [(0, 0), (0, 0), (4, 0), (6, 0), (8, 0)]
@@ -63,8 +64,26 @@ def three_in_a_row():
     else:
         return False
 
-i = 1
-if i == 1:
-    pass
+
+'''print("olha")
+print(len(b) - 1)
+print("aqui")
+
+d = [(1, 0), (3, 0), []]
+
+c = -1
+print(d[c])
+print("shi")
+while not d[c]:
+    c = random.randint(0, len(d) - 1)
+    yes = d[c]
+    print(c)'''
+def teste():
+    return [(8, 1)]
+
+i = ()
+
+if i:
+    print(i)
 else:
-    print("merda")
+    print("toa")
