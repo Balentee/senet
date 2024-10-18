@@ -84,6 +84,7 @@ b_win = pygame.image.load("img/b_win.png").convert_alpha()
 next_img = pygame.image.load("img/button_next.png").convert_alpha()
 rules1_img = pygame.image.load("img/rules1.png").convert_alpha()
 rules2_img = pygame.image.load("img/rules2.png").convert_alpha()
+pass_img = pygame.image.load("img/button_pass.png").convert_alpha()
 
 # esconder rato original
 pygame.mouse.set_visible(False)
@@ -111,7 +112,7 @@ quit_pause_button = button.Button(819, 850, quit_img, 1)
 quit_to_menu_win_button = button.Button(815, 250, quit_to_menu_img, 1)
 next_button = button.Button(1371, 906, next_img, 1)
 back_rules_button = button.Button(117, 906, back_img, 1)
-
+pass_button = button.Button(1200, 744, pass_img, 1)
 
 # peças do jogo (TABULEIRO --> 3*10 -> 30 linha 1 começa (0, 0) e acaba (0,10) ver notas.txt
 white_pieces = ['cone', 'cone', 'cone', 'cone', 'cone']
@@ -482,7 +483,8 @@ def three_in_a_row(n, position, turn):
 running = True
 while running:
     window.blit(background, (0, 0))
-
+    # game_win = "white"
+    # game_win = "black"
     if restart:
         white_pieces = ['cone', 'cone', 'cone', 'cone', 'cone']
         white_location = [(0, 0), (2, 0), (4, 0), (6, 0), (8, 0)]
@@ -655,7 +657,25 @@ while running:
                 if quit_pause_button.draw(window):
                     running = False
 
-        else:
+        if game_win == "white":
+            window.blit(w_win, (741, 127))
+            if quit_to_menu_win_button.draw(window):
+                restart = True
+                game_pause = False
+                game_start = False
+                menu_state = "start"
+                game_win = ""
+
+        if game_win == "black":
+            window.blit(b_win, (736, 135))
+            if quit_to_menu_win_button.draw(window):
+                restart = True
+                game_pause = False
+                game_start = False
+                menu_state = "start"
+                game_win = ""
+
+        if not game_pause:
             display_text("Press esc to menu", arial, white, 0, 0)
 
             '''if game_bot:
@@ -712,6 +732,13 @@ while running:
                     window.blit(point5, (891, 780))
                     game_start = False
                     game_win = "white"
+                if pass_button.draw(window):
+                    black_options = check_options(sticks, black_pieces, black_location, 'spool')
+                    white_options = check_options(sticks, white_pieces, white_location, 'cone')
+                    turn_step = 2
+                    selection = 100
+                    sticks = 0
+                    valid_moves = []
 
             if turn_step >= 2:
                 window.blit(blue_img, (830, 743))
@@ -731,21 +758,14 @@ while running:
                     window.blit(point5, (891, 780))
                     game_start = False
                     game_win = "black"
+                if pass_button.draw(window):
+                    black_options = check_options(sticks, black_pieces, black_location, 'spool')
+                    white_options = check_options(sticks, white_pieces, white_location, 'cone')
+                    turn_step = 0
+                    selection = 100
+                    sticks = 0
+                    valid_moves = []
 
-            if game_win == "white":
-                window.blit(w_win, (741,127))
-                if quit_to_menu_win_button.draw(window):
-                    restart = True
-                    game_pause = False
-                    game_start = False
-                    menu_state = "start"
-            if game_win == "black":
-                window.blit(b_win, (736, 135))
-                if quit_to_menu_win_button.draw(window):
-                    restart = True
-                    game_pause = False
-                    game_start = False
-                    menu_state = "start"
 
             if selection != 100:
                 valid_moves = check_valid_moves()
@@ -830,6 +850,7 @@ while running:
                     sticks = 0
                     valid_moves = []
 
+
             # if black turn
             if turn_step > 1:
                 if click_coords in black_location:
@@ -886,12 +907,10 @@ while running:
 
                     black_options = check_options(sticks, black_pieces, black_location, 'spool')
                     white_options = check_options(sticks, white_pieces, white_location, 'cone')
-                    # TODO: BOT CLICK TO CONTINUE
                     turn_step = 0
                     selection = 100
                     sticks = 0
                     valid_moves = []
-
 
 
         if event.type == VIDEORESIZE:
